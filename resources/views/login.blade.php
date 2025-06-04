@@ -20,13 +20,13 @@
                     </ul>
                 </div>
             @endif
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
+            @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
                 </div>
             @endif
             <h1 class="h1 text-center titulo-principal">Iniciar sesion</h1>
-            <form action="{{ route('iniciarSesion') }}" method="POST" enctype="multipart/form-data" class="form-auth">
+            <form action="{{ route('iniciarSesion') }}" method="POST" class="form-auth">
                 @csrf
                 <label class="encabezado">Correo electronico</label>
                 <input type="text" name="email" required class="form-control mb-2" placeholder="Correo electronico">

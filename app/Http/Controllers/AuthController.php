@@ -48,13 +48,15 @@ class AuthController extends Controller
     public function iniciarSesion(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|email|exists:usuarios,email',
+            'email' => 'required|email',
             'password' => 'required|min:8'
         ]);
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
             $user = Auth::user();
             return redirect()->route('mostrar.Inicio');
+        } else {
+            return redirect()->route('mostrar.Login')->with('error', 'El correo o la contrasena son incorrectos.');
         }
     }
 
