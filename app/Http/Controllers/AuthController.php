@@ -29,7 +29,8 @@ class AuthController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         // Crea el usuario en la base de datos
         $user = Usuarios::create($validated);
-        return redirect()->route('mostrar.Registro')->with('success', 'Usuario registrado correctamente.');
+        $user->sendEmailVerificationNotification();
+        return redirect()->route('verification.notice')->with('success', 'Usuario registrado correctamente.');
     }
 
     public function mostrarRegistro(){
