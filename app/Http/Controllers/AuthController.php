@@ -29,6 +29,7 @@ class AuthController extends Controller
         $validated['password'] = Hash::make($validated['password']);
         // Crea el usuario en la base de datos
         $user = Usuarios::create($validated);
+        Auth::login($user);
         $user->sendEmailVerificationNotification();
         return redirect()->route('verification.notice')->with('success', 'Usuario registrado correctamente.');
     }
@@ -55,9 +56,13 @@ class AuthController extends Controller
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
             $user = Auth::user();
+            if($user->email_verified_at === null) {
+                Auth::logout();
+                return redirect()->route('verification.notice');
+            }
             return redirect()->route('mostrar.Inicio');
         } else {
-            return redirect()->route('mostrar.Login')->with('error', 'El correo o la contrasena son incorrectos.');
+            return redirect()->route('login')->with('error', 'El correo o la contrasena son incorrectos.');
         }
     }
 
