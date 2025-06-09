@@ -60,3 +60,8 @@
     font-weight: 200;
 }
 
+.reenviar-btn {
+    background-color: var(--celeste);
+    border: none;
+}
+
