@@ -1,4 +1,3 @@
-{{-- filepath: resources/views/barcode-list.blade.php --}}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,10 +8,13 @@
 <body>
     <h1>Códigos de Barras Escaneados</h1>
     @foreach ($productos as $producto)
-            <li>{{ $producto->nombre }}</li>
-        @endforeach
-    <a href="{{ route('barcode') }}">Escanear otro código</a>
+        <div>
+            <h2>{{ $producto->nombre }}</h2>
+            <p>Código de barras: {{ $producto->codigo_barras }}</p>
+            <p>Precio: {{ $producto->precio }}</p>
+            <p>Descripción: {{ $producto->descripcion }}</p>
+        </div>
+        <hr>
+    @endforeach
 </body>
- 
 </html>
-{{-- filepath: resources/views/barcode.blade.php --}}

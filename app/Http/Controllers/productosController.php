@@ -10,12 +10,10 @@ class productosController extends Controller
     {
         return view('barcode-list');
     }
-    
-
-    public function mostrarProducto()
+    public function mostrarProducto(Request $request)
     {
-        /*$barcode = $request->input('barcode');*/
+        $barcode = $request->input('barcode');
         $productos = Productos::all();
-        return view('barcode-list', compact('productos'));
+        return view('Producto', compact('productos'));
     }
 }
