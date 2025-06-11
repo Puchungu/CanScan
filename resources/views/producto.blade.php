@@ -11,6 +11,12 @@
         <div>
             <h2>{{ $producto->nombre }}</h2>
             <p>Código de barras: {{ $producto->codigo_barra }}</p>
+            <h3>Componentes:</h3>
+            <ul>
+                @foreach ($producto->componentes as $componente)
+                    <li>{{ $componente->nombre }}</li>
+                @endforeach
+            </ul>
         </div>
     @endforeach
 </body>

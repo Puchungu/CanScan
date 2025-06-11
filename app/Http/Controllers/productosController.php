@@ -12,7 +12,7 @@ class productosController extends Controller
     public function mostrarProducto(Request $request)
     {
         $barcode = $request->input('barcode');
-        $producto = Productos::where('codigo_barra', $barcode)->get();
+        $producto = Productos::with('componentes')->where('codigo_barra', $barcode)->get();
         return view('Producto', compact('producto'));
     }
 }
