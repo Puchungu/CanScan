@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\Productos;
 use Illuminate\Http\Request;
@@ -13,7 +12,7 @@ class productosController extends Controller
     public function mostrarProducto(Request $request)
     {
         $barcode = $request->input('barcode');
-        $productos = Productos::all();
-        return view('Producto', compact('productos'));
+        $producto = Productos::where('codigo_barra', $barcode)->get();
+        return view('Producto', compact('producto'));
     }
 }
