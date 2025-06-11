@@ -19,6 +19,6 @@ class Componentes extends Model
     /* Relación: Un componente pertenece a un producto*/
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'id_productos');
+        return $this->belongsTo(Productos::class, 'id_productos');
     }
 }

@@ -30,3 +30,16 @@ Route::post('/email/verification-notification', function (Request $request) {
 
     return back()->with('message', 'Correo de verificación reenviado.');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::get('/barcode', function () {
+    return view('barcode');
+})->name('barcode');
+
+Route::post('/barcode/upload', function (Illuminate\Http\Request $request) {
+    $barcode = $request->input('barcode');
+    return redirect()->route('barcode.list')->with('barcode', $barcode);
+})->name('barcode.upload');
+
+Route::get('/barcode/list', function () {
+    return view('barcode-list');
+})->name('barcode.list');
