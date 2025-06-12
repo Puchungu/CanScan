@@ -58,7 +58,7 @@ class AuthController extends Controller
             $user = Auth::user();
             if($user->email_verified_at === null) {
                 Auth::logout();
-                return redirect()->route('verification.notice');
+                return redirect()->route('login')->with('error', 'Por favor, verifica tu correo electrónico antes de iniciar sesión.');
             }
             return redirect()->route('mostrar.Inicio');
         } else {
