@@ -30,7 +30,7 @@
                                 @endforeach
                             </div>
                             <a href="{{ route('barcode') }}">
-                            <button id="btn-back" class="btn btn-primary mt-3">
+                            <button type="submit" class="btn btn-primary w-100 btn-login mt-3">
                                 Escanear otro producto
                             </button>
                             </a>

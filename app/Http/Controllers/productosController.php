@@ -13,6 +13,9 @@ class productosController extends Controller
     {
         $barcode = $request->input('barcode');
         $producto = Productos::with('componentes')->where('codigo_barra', $barcode)->get();
+        if ($producto->isEmpty()) {
+        return redirect()->back()->with('error', 'Producto no encontrado.');
+    }
         return view('Producto', compact('producto'));
     }
 }

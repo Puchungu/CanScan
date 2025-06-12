@@ -25,20 +25,25 @@
                 <div class="small">Busca un área<br>bien iluminada</div>
             </div>
         </div>
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div id="camara" class="camera mb-3"> </div>
         <div class="switch mb-3">
             <button id="toggle-camera" class="btn btn-outline-success rounded-pill px-4">Encender cámara</button>
         </div>
         <form action="{{ route('barcode.scan') }}" method="POST">
             @csrf
-            <input id="barcode-input" name="barcode" type="text" class="form-control barcode-input mb-3" placeholder="Escribe el código de barras">
+            <input id="barcode-input" name="barcode" type="text" class="form-control barcode-input mb-3" placeholder="Escribe el código de barras" required>
             <div class="d-grid">
-                <button type="submit" class="btn btn-celeste">Mostrar Producto</button>
+                <button type="submit" class="btn btn-primary w-100 btn-login">Mostrar Producto</button>
             </div>
         </form>
         <div class="d-grid">
             <a href="{{ route('mostrar.Inicio') }}" class="btn btn-celeste mt-3">
-                Regresar al home
+                <button type="submit" class="btn btn-primary w-100 btn-login">Regresar al home</button>
             </a>
         </div>
     </div>
