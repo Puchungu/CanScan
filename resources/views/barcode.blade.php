@@ -30,7 +30,11 @@
                 {{ session('error') }}
             </div>
         @endif
-        <div id="camara" class="camera mb-3"> </div>
+        <div id="camara" class="camera mb-3"><svg class="camera-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 64 64">
+    <rect x="8" y="20" width="48" height="32" rx="6" stroke="#888"/>
+    <circle cx="32" cy="36" r="10" stroke="#888"/>
+    <rect x="24" y="12" width="16" height="8" rx="2" stroke="#888"/>
+</svg></div>
         <div class="switch mb-3">
             <button id="toggle-camera" class="btn btn-outline-success rounded-pill px-4">Encender cámara</button>
         </div>
