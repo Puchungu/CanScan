@@ -3,6 +3,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Componente;
 
 class Productos extends Model
 {
@@ -21,6 +22,6 @@ class Productos extends Model
     /*Relación: Un producto tiene muchos componentes*/
     public function componentes()
     {
-        return $this->hasMany(Componente::class, 'id_productos');
+        return $this->hasMany(Componentes::class, 'id_productos');
     }
 }

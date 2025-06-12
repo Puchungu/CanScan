@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre')->unique();
-            $table->binary('img')->nullable();
+            $table->string('img')->nullable();
             $table->text('descripcion')->nullable();
             $table->string('marca');
             $table->string('codigo_barra');
