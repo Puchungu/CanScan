@@ -26,7 +26,12 @@ function startCamera() {
         inputStream : {
             name : "Live",
             type : "LiveStream",
-            target: camaraDiv
+            target: camaraDiv,
+            constraints: {
+            facingMode: "environment", // trasera en móvil
+                width: { min: 640 },
+                height: { min: 480 }
+    }
         },
         decoder : {
             readers : ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "upc_reader", "upc_e_reader"]
@@ -77,3 +82,28 @@ if (toggleButton) {
         }
     });
 }
+
+//boton mostrar producto
+document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("barcode-input");
+    const button = document.getElementById("submit-btn");
+
+    if (input && button) {
+        // estado inicial
+        button.disabled = true;
+        button.classList.remove("btn-primary");
+        button.classList.add("btn-secondary");
+
+        input.addEventListener("input", () => {
+            if (input.value.trim() !== "") {
+                button.disabled = false;
+                button.classList.remove("btn-secondary");
+                button.classList.add("btn-primary");
+            } else {
+                button.disabled = true;
+                button.classList.remove("btn-primary");
+                button.classList.add("btn-secondary");
+            }
+        });
+    }
+});
