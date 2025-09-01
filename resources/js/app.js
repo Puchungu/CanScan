@@ -107,3 +107,43 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const nombre = document.getElementById('nombre');
+    const email = document.getElementById('email');
+    const username = document.getElementById('username');
+    const saveBtn = document.getElementById('save-btn');
+
+    if (!nombre || !email || !username || !saveBtn) return;
+
+    const initialValues = {
+        nombre: nombre.value,
+        email: email.value,
+        username: username.value
+    };
+
+    function checkChanges() {
+        if (
+            nombre.value.trim() !== initialValues.nombre.trim() ||
+            email.value.trim() !== initialValues.email.trim() ||
+            username.value.trim() !== initialValues.username.trim()
+        ) {
+            saveBtn.disabled = false;
+            saveBtn.classList.remove('btn-secondary');
+            saveBtn.classList.add('btn-primary');
+        } else {
+            saveBtn.disabled = true;
+            saveBtn.classList.remove('btn-primary');
+            saveBtn.classList.add('btn-secondary');
+        }
+    }
+
+    // Inicialmente deshabilitado y gris
+    saveBtn.disabled = true;
+    saveBtn.classList.remove('btn-primary');
+    saveBtn.classList.add('btn-secondary');
+
+    nombre.addEventListener('input', checkChanges);
+    email.addEventListener('input', checkChanges);
+    username.addEventListener('input', checkChanges);
+});

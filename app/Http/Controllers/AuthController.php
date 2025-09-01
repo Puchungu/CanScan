@@ -73,4 +73,21 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('mostrar.Inicio');
     }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'username' => 'required|string|max:30|unique:usuarios,username,' . $user->id,
+            'email' => 'required|email|unique:usuarios,email,' . $user->id,
+        ]);
+
+        try {
+            $user->update($validated);
+            return back()->with('success', 'Perfil actualizado correctamente.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al actualizar el perfil.');
+        }
+    }
 }

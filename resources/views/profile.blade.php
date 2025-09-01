@@ -15,7 +15,7 @@
             <p class="text-muted small">Miembro desde {{ Auth::user()->created_at->format('M Y') }}</p>
         <!-- Secciones estilo Airbnb -->
         <div class="list-group shadow-sm rounded-3">
-            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <a href="{{ route('personalinfo') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                 <span><i class="bi bi-person me-2"></i>Información personal</span>
                 <i class="bi bi-chevron-right"></i>
             </a>

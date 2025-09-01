@@ -13,6 +13,7 @@ Route::post('/registrarse', [AuthController::class, 'Registrar'])->name('Registr
 Route::post('/login', [AuthController::class, 'iniciarSesion'])->name('iniciarSesion');
 Route::get('/login', [AuthController::class, 'mostrarInicioSesion'])->name('login');
 Route::post('/logout', [AuthController::class, 'cerrarSesion'])->name('logout');
+Route::PUT('/update-profile', [AuthController::class, 'update'])->name('update.profile');
 
 //Email Verification
 Route::get('/email/verify', function () {
@@ -43,3 +44,6 @@ Route::get('/barcode/list', function () {
 Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
+Route::get('/personalinfo', function () {
+    return view('personalinfo');
+})->name('personalinfo');
