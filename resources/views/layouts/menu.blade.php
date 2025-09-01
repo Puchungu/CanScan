@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container mt-5 mb-5">
-        @yield('content')
+    @yield('content')
     </div>
     <!-- Menú inferior tipo Airbnb -->
     <nav class="bottom-nav d-flex justify-content-around border-top">
@@ -23,7 +23,7 @@
             <span class="nav-icon bi bi-upc-scan"></span>
             <span>Escanear</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="{{ route('profile') }}" class="nav-link">
             <span class="nav-icon bi bi-person"></span>
             <span>Perfil</span>
         </a>

@@ -39,3 +39,7 @@ Route::post('/barcode', [productosController::class, 'mostrarProducto'])->name('
 Route::get('/barcode/list', function () {
     return view('barcode-list');
 })->name('barcode.list');
+
+Route::get('/profile', function () {
+    return view('profile');
+})->name('profile');
