@@ -5,6 +5,7 @@
     @section('homeActive', 'active') 
 
     @section('content')
+    @auth
     <div class="container py-4" style="max-width: 800px;">
         <!-- Cabecera del perfil -->
         <div class="text-center mb-4">
@@ -43,8 +44,14 @@
             </form>
         </div>
     </div>
+    @endauth
     @guest
-    
+        <div class="text-center">
+            <h2>Debes iniciar sesión para ver tu perfil</h2>
+            <p>
+                <a href="{{ route('login') }}" class="btn btn-primary me-2">Iniciar Sesión</a>
+                <a href="{{ route('mostrar.Registro') }}" class="btn btn-outline-primary">Registrarse</a>
+            </p>
+        </div>
     @endguest
-
     @endsection

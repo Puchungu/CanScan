@@ -35,6 +35,7 @@
                 <a href="{{ route('mostrar.Registro') }}" class="page-link mb-2">No tienes cuenta?, registrate</a>
                 <button type="submit" class="btn btn-primary w-100 btn-login">Iniciar sesion</button>
             </form>
+            <a href="{{ route('barcode') }}"><button class="btn btn-primary w-100 btn-login mt-3">Entrar como invitado</button></a>
         </div>
     </div>
 </body>
