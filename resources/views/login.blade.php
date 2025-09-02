@@ -32,11 +32,15 @@
                 <input type="text" name="email" required class="form-control mb-2" placeholder="Correo electronico">
                 <label class="encabezado">Contrasena</label>
                 <input type="password" name="password" required class="form-control mb-2" placeholder="Contrasena">
-                <a href="{{ route('mostrar.Registro') }}" class="page-link mb-2">Registrate</a>
-                <a href="{{ route('password.request') }}" class="page-link mb-2">Recuperar Contrasena</a>
+                <div class="d-flex gap-5 mb-2">
+                    <a href="{{ route('mostrar.Registro') }}" class="page-link">Crear cuenta</a>
+                    <a href="{{ route('password.request') }}" class="page-link">¿Olvidaste tu contraseña?</a>
+                </div>
                 <button type="submit" class="btn btn-primary w-100 btn-login">Iniciar sesion</button>
+                <div class="text-center mt-3">
+                    <a href="{{ route('barcode') }}" class="link-secondary small">Entrar como invitado</a>
+                </div>
             </form>
-            <a href="{{ route('barcode') }}"><button class="btn btn-primary w-100 btn-login mt-3">Entrar como invitado</button></a>
         </div>
     </div>
 </body>

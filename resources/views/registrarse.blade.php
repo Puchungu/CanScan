@@ -38,7 +38,7 @@
                 <input type="file" name="img" class="form-control mb-2">
                 <label class="encabezado">Contrasena</label>
                 <input type="password" name="password" class="form-control mb-2" placeholder="Contrasena">
-                <a href="{{ route('login') }}" class="page-link mb-2">Ya tienes cuenta?, Inicia sesión</a>
+                    <a href="{{ route('login') }}" class="page-link mb-2">Ya tienes cuenta?, Inicia sesión</a>
                 <button type="submit" class="btn btn-primary w-100 btn-register">Registrarse</button>
             </form>
         </div>
