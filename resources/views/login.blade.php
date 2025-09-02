@@ -32,7 +32,8 @@
                 <input type="text" name="email" required class="form-control mb-2" placeholder="Correo electronico">
                 <label class="encabezado">Contrasena</label>
                 <input type="password" name="password" required class="form-control mb-2" placeholder="Contrasena">
-                <a href="{{ route('mostrar.Registro') }}" class="page-link mb-2">No tienes cuenta?, registrate</a>
+                <a href="{{ route('mostrar.Registro') }}" class="page-link mb-2">Registrate</a>
+                <a href="{{ route('password.request') }}" class="page-link mb-2">Recuperar Contrasena</a>
                 <button type="submit" class="btn btn-primary w-100 btn-login">Iniciar sesion</button>
             </form>
             <a href="{{ route('barcode') }}"><button class="btn btn-primary w-100 btn-login mt-3">Entrar como invitado</button></a>
