@@ -15,15 +15,15 @@
     </div>
     <!-- Menú inferior tipo Airbnb -->
     <nav class="bottom-nav d-flex justify-content-around border-top">
-        <a href="{{ route('mostrar.Inicio') }}" class="nav-link active">
+        <a href="{{ route('mostrar.Inicio') }}" class="nav-link {{ Request::routeIs('mostrar.Inicio') ? 'active' : '' }}">
             <span class="nav-icon bi bi-house-door"></span>
             <span>Inicio</span>
         </a>
-        <a href="{{ route('barcode') }}" class="nav-link">
+        <a href="{{ route('barcode') }}" class="nav-link {{ Request::routeIs('barcode') ? 'active' : '' }}">
             <span class="nav-icon bi bi-upc-scan"></span>
             <span>Escanear</span>
         </a>
-        <a href="{{ route('profile') }}" class="nav-link">
+        <a href="{{ route('profile') }}" class="nav-link {{ Request::routeIs('profile') ? 'active' : '' }}">
             <span class="nav-icon bi bi-person"></span>
             <span>Perfil</span>
         </a>
