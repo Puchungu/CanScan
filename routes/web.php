@@ -26,6 +26,11 @@ Route::get('/profile', function () {
     return view('profile');
 })->name('profile');
 
+    // Lector de códigos de barras
+    Route::get('/barcode', function () {
+        return view('barcode');
+    })->name('barcode');
+
 // -----------------------------
 // RUTAS CON AUTENTICACIÓN
 // -----------------------------
@@ -46,6 +51,8 @@ Route::middleware('auth')->group(function () {
         return view('security');
     })->name('security');
 
+    Route::post('/change-password', [AuthController::class, 'updatePassword'])->name('update.password');
+
     Route::post('/logout', [AuthController::class, 'cerrarSesion'])->name('logout');
 
     // Email Verification
@@ -63,10 +70,6 @@ Route::middleware('auth')->group(function () {
         return back()->with('message', 'Correo de verificación reenviado.');
     })->middleware('throttle:6,1')->name('verification.send');
 
-    // Lector de códigos de barras
-    Route::get('/barcode', function () {
-        return view('barcode');
-    })->name('barcode');
 
     Route::post('/barcode', [productosController::class, 'mostrarProducto'])->name('barcode.scan');
 
