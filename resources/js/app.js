@@ -1,4 +1,4 @@
-import Quagga from 'quagga';
+import Quagga, { halfSample } from 'quagga';
 
 let cameraActive = false;
 
@@ -28,14 +28,17 @@ function startCamera() {
             type : "LiveStream",
             target: camaraDiv,
             constraints: {
-            facingMode: "environment", // trasera en móvil
-                width: { min: 640 },
+                facingMode: "environment",
+                advance:[{zoom:2}],
+                width: { min: 720 },
                 height: { min: 480 }
     }
+
         },
         decoder : {
             readers : ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "upc_reader", "upc_e_reader"]
         }
+
     }, function(err) {
         if (err) {
             console.log(err);
