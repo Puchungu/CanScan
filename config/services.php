@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'upcdatabase' => [
+    'key' => env('UPCDB_API_KEY'),
+    'url' => 'https://api.upcdatabase.org/product/',
+    ],
+    'usda' => [
+    'key' => env('USDA_API_KEY'),
+    ],
+
 ];

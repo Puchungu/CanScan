@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre')->unique();
             $table->string('img')->nullable();
             $table->text('descripcion')->nullable();
-            $table->string('marca');
+            $table->string('marca')->default('Desconocida');
             $table->string('codigo_barra');
             $table->timestamps();
         });
