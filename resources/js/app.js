@@ -28,10 +28,9 @@ function startCamera() {
             type : "LiveStream",
             target: camaraDiv,
             constraints: {
-            facingMode: "environment"},
-            area: { 
-                width: { min: 1280 },
-                height: { min: 720 }
+            facingMode: "environment", // trasera en móvil
+                width: { min: 640 },
+                height: { min: 480 }
     }
         },
         decoder : {
