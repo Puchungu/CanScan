@@ -1,8 +1,6 @@
 import Quagga from 'quagga';
 
 let cameraActive = false;
-let lastCode = '';
-let stableCount = 0;
 
 const toggleButton = document.getElementById('toggle-camera');
 const imgOn = document.getElementById('img-on');
@@ -19,46 +17,30 @@ const cameraSVG = `
 </svg>
 `;
 
-// =======================
-// LECTOR DE CÓDIGOS DE BARRAS MEJORADO
-// =======================
 function startCamera() {
-    if (camaraDiv) camaraDiv.innerHTML = '';
-
+    // Quitar SVG antes de iniciar cámara
+    if (camaraDiv) {
+        camaraDiv.innerHTML = '';
+    }
     Quagga.init({
-        inputStream: {
-            name: "Live",
-            type: "LiveStream",
+        inputStream : {
+            name : "Live",
+            type : "LiveStream",
             target: camaraDiv,
             constraints: {
-                facingMode: "environment",
+            facingMode: "environment"},
+            area: { 
                 width: { min: 1280 },
                 height: { min: 720 }
-            },
-            area: { 
-                top: "25%",
-                right: "10%",
-                bottom: "25%",
-                left: "10%"
-            }
+    }
         },
-        decoder: {
-            readers: [
-                "code_128_reader",
-                "ean_reader",
-                "ean_8_reader",
-                "upc_reader",
-                "upc_e_reader",
-                "code_39_reader"
-            ],
-            multiple: false
-        },
-        locate: true,
-        numOfWorkers: navigator.hardwareConcurrency || 4,
-        halfSample: true
+        decoder : {
+            readers : ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "upc_reader", "upc_e_reader"]
+        }
     }, function(err) {
         if (err) {
             console.log(err);
+            // Si hay error, volver a mostrar SVG
             if (camaraDiv) camaraDiv.innerHTML = cameraSVG;
             return;
         }
@@ -71,48 +53,27 @@ function startCamera() {
             imgOn.style.display = "inline";
             imgOff.style.display = "none";
         }
-
-        // Recuadro guía
-        const overlay = document.createElement('div');
-        overlay.id = 'scan-overlay';
-        overlay.style.position = 'absolute';
-        overlay.style.top = '25%';
-        overlay.style.left = '10%';
-        overlay.style.width = '80%';
-        overlay.style.height = '50%';
-        overlay.style.border = '2px dashed #00ff00';
-        overlay.style.borderRadius = '8px';
-        overlay.style.pointerEvents = 'none';
-        camaraDiv.appendChild(overlay);
-    });
-
-    Quagga.onDetected(function(result) {
-        if (result && result.codeResult && result.codeResult.code) {
-            const code = result.codeResult.code;
-            if (code === lastCode) {
-                stableCount++;
-            } else {
-                lastCode = code;
-                stableCount = 1;
-            }
-            if (stableCount >= 3) {
-                barcodeInput.value = code;
-            }
-        }
     });
 }
 
+// Escuchar el resultado del escaneo
+Quagga.onDetected(function(result) {
+    if (barcodeInput && result && result.codeResult && result.codeResult.code) {
+        barcodeInput.value = result.codeResult.code;
+    }
+});
 function stopCamera() {
     Quagga.stop();
     cameraActive = false;
     toggleButton.textContent = "Encender cámara";
     toggleButton.classList.remove('btn-rojo');
     toggleButton.classList.add('btn-outline-success');
+    if (imgOn && imgOff) {
+    }
     if (camaraDiv) {
         camaraDiv.innerHTML = cameraSVG;
     }
 }
-
 if (toggleButton) {
     toggleButton.addEventListener('click', function() {
         if (cameraActive) {
@@ -123,14 +84,13 @@ if (toggleButton) {
     });
 }
 
-// =======================
-// BOTÓN MOSTRAR PRODUCTO
-// =======================
+//boton mostrar producto
 document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("barcode-input");
     const button = document.getElementById("submit-btn");
 
     if (input && button) {
+        // estado inicial
         button.disabled = true;
         button.classList.remove("btn-primary");
         button.classList.add("btn-secondary");
@@ -149,9 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// =======================
-// CONTROL DE CAMBIOS DE USUARIO
-// =======================
 document.addEventListener('DOMContentLoaded', function () {
     const nombre = document.getElementById('nombre');
     const email = document.getElementById('email');
@@ -182,6 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Inicialmente deshabilitado y gris
     saveBtn.disabled = true;
     saveBtn.classList.remove('btn-primary');
     saveBtn.classList.add('btn-secondary');
