@@ -25,6 +25,13 @@
                     {{ session('error') }}
                 </div>
             @endif
+            @if (session('status'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('status') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
+
             <h1 class="h1 text-center titulo-principal">Iniciar sesion</h1>
             <form action="{{ route('iniciarSesion') }}" method="POST" class="form-auth">
                 @csrf

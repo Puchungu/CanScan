@@ -150,3 +150,37 @@ document.addEventListener('DOMContentLoaded', function () {
     email.addEventListener('input', checkChanges);
     username.addEventListener('input', checkChanges);
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const currentPassword = document.getElementById('current_password');
+    const newPassword = document.getElementById('new_password');
+    const newPasswordConfirmation = document.getElementById('new_password_confirmation');
+    const saveBtn = document.getElementById('save-btn');
+
+    if (!currentPassword || !newPassword || !newPasswordConfirmation || !saveBtn) return;
+
+    function checkPasswordFields() {
+        if (
+            currentPassword.value.trim() !== '' &&
+            newPassword.value.trim() !== '' &&
+            newPasswordConfirmation.value.trim() !== ''
+        ) {
+            saveBtn.disabled = false;
+            saveBtn.classList.remove('btn-secondary');
+            saveBtn.classList.add('btn-primary');
+        } else {
+            saveBtn.disabled = true;
+            saveBtn.classList.remove('btn-primary');
+            saveBtn.classList.add('btn-secondary');
+        }
+    }
+
+    // Inicialmente deshabilitado y gris
+    saveBtn.disabled = true;
+    saveBtn.classList.remove('btn-primary');
+    saveBtn.classList.add('btn-secondary');
+
+    currentPassword.addEventListener('input', checkPasswordFields);
+    newPassword.addEventListener('input', checkPasswordFields);
+    newPasswordConfirmation.addEventListener('input', checkPasswordFields);
+});

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
+use App\Models\Productos;
 
 class AuthController extends Controller
 {
@@ -17,17 +18,8 @@ class AuthController extends Controller
             'nombre' => 'required',
             'username' => 'required|max:30|unique:usuarios',
             'email' => 'required|email|unique:usuarios',
-            'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'password' => 'required|min:8'
         ]);
-        //Mira si se ha subido una imagen y la convierte a binario, Si no se sube una imagen, se asigna null
-        if ($request->hasFile('img')) {
-            $image = $request->file('img');
-            $imageBinary = file_get_contents($image->getRealPath());
-            $validated['img'] = $imageBinary;
-        } else {
-            $validated['img'] = null;
-        }
         //Encripta la contraseña antes de guardarla
         $validated['password'] = Hash::make($validated['password']);
         // Crea el usuario en la base de datos
@@ -47,7 +39,8 @@ class AuthController extends Controller
     }
     public function mostrarInicio()
     {
-        return view('inicio');
+        $productos = Productos::inRandomOrder()->take(6)->get(); // 6 productos aleatorios
+        return view('inicio', compact('productos'));
     }
 
     public function iniciarSesion(Request $request)
@@ -92,6 +85,19 @@ class AuthController extends Controller
         } catch (\Exception $e) {
             return back()->with('error', 'Error al actualizar el perfil.');
         }
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|in:1,2,3,4'
+        ]);
+
+        $user = auth()->user();
+        $user->avatar = $request->avatar;
+        $user->save();
+
+        return back()->with('success', 'Avatar actualizado correctamente');
     }
 
     // Mostrar formulario "Olvidé mi contraseña"
@@ -147,5 +153,32 @@ public function resetPassword(Request $request)
     return $status === Password::PASSWORD_RESET
         ? redirect()->route('login')->with('status', __($status))
         : back()->withErrors(['email' => __($status)]);
+}
+public function updatePassword(Request $request)
+{
+    $request->validate([
+        'current_password' => ['required'],
+        'new_password' => ['required', 'min:8', 'confirmed'],
+    ], [
+        'current_password.required' => 'Debes ingresar tu contraseña actual.',
+        'new_password.required' => 'Debes ingresar una nueva contraseña.',
+        'new_password.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',
+        'new_password.confirmed' => 'La confirmación de la nueva contraseña no coincide.',
+    ]);
+
+    $user = Auth::user();
+
+    if (!Hash::check($request->current_password, $user->password)) {
+        return back()->with('error', 'La contraseña actual es incorrecta.');
+    }
+
+    if (Hash::check($request->new_password, $user->password)) {
+        return back()->with('error', 'La nueva contraseña no puede ser igual a la actual.');
+    }
+
+    $user->password = Hash::make($request->new_password);
+    $user->save();
+
+    return back()->with('success', 'Contraseña actualizada correctamente.');
 }
 }

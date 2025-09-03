@@ -66,4 +66,21 @@ class ProductosController extends Controller
         // 3️⃣ Si no se encuentra
         return redirect()->back()->with('error', 'Producto no encontrado ni en la BD ni en la API USDA.');
     }
+    public function inicio()
+    {
+        // 🔹 Opción 1: últimos 6 productos
+        $productos = Productos::inRandomOrder()->take(6)->get();
+
+        return view('home', compact('productos'));
+    }
+
+    public function verProducto($id)
+    {
+        // Buscar producto con sus componentes
+        $producto = Productos::with('componentes')->findOrFail($id);
+
+        // Retornar la vista de detalle del producto
+        return view('Producto', compact('producto'));
+    }
+
 }

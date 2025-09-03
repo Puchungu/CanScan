@@ -16,8 +16,8 @@ class Usuarios extends Authenticatable implements MustVerifyEmail
         'nombre',
         'username',
         'email',
-        'img',
         'password',
+        'avatar',
         'email_verified_at',
     ];
 

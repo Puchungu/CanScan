@@ -34,8 +34,6 @@
                 <input type="text" name="username" class="form-control mb-2" placeholder="Username">
                 <label class="encabezado">Correo electronico</label>
                 <input type="text" name="email" class="form-control mb-2" placeholder="Correo electronico">
-                <label class="encabezado">Foto de perfil</label>
-                <input type="file" name="img" class="form-control mb-2">
                 <label class="encabezado">Contrasena</label>
                 <input type="password" name="password" class="form-control mb-2" placeholder="Contrasena">
                     <a href="{{ route('login') }}" class="page-link mb-2">Ya tienes cuenta?, Inicia sesión</a>
