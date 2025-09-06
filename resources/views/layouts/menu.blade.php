@@ -23,6 +23,14 @@
             <span class="nav-icon bi bi-upc-scan"></span>
             <span>Escanear</span>
         </a>
+        <a href="{{ route('comparar.show') }}" class="nav-link position-relative">
+            <i class="bi bi-bar-chart"></i> Comparar
+            @if(session('compare') && count(session('compare')) > 0)
+                <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">
+                    {{ count(session('compare')) }}
+                </span>
+            @endif
+        </a>
         <a href="{{ route('profile') }}" class="nav-link {{ Request::routeIs('profile') ? 'active' : '' }}">
             <span class="nav-icon bi bi-person"></span>
             <span>Perfil</span>

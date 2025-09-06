@@ -100,13 +100,13 @@ class AuthController extends Controller
         return back()->with('success', 'Avatar actualizado correctamente');
     }
 
-    // Mostrar formulario "Olvidé mi contraseña"
+    //Mostrar formulario "Olvidé mi contraseña"
 public function showForgotPasswordForm()
 {
-    return view('forgot'); // vista para pedir enlace de reset
+    return view('forgot'); //vista para pedir enlace de reset
 }
 
-// Enviar enlace de restablecimiento
+//Enviar enlace de restablecimiento
 public function sendResetLinkEmail(Request $request)
 {
     $request->validate(['email' => 'required|email']);
@@ -120,7 +120,7 @@ public function sendResetLinkEmail(Request $request)
         : back()->withErrors(['email' => __($status)]);
 }
 
-// Mostrar formulario para nueva contraseña
+//Mostrar formulario para nueva contraseña
 public function showResetForm(Request $request, $token)
 {
     return view('reset', [
@@ -129,7 +129,7 @@ public function showResetForm(Request $request, $token)
     ]);
 }
 
-// Guardar la nueva contraseña
+//Guardar la nueva contraseña
 public function resetPassword(Request $request)
 {
     $request->validate([

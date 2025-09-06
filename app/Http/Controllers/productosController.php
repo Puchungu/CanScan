@@ -17,13 +17,13 @@ class ProductosController extends Controller
 
         $barcode = $request->input('barcode');
 
-        // 1️⃣ Buscar en BD local
+        //Buscar en BD local
         $producto = Productos::with('componentes')->where('codigo_barra', $barcode)->first();
         if ($producto) {
             return view('Producto', compact('producto'));
         }
 
-        // 2️⃣ Buscar en USDA
+        //Buscar en USDA
         try {
             $response = Http::withoutVerifying()->get('https://api.nal.usda.gov/fdc/v1/foods/search', [
                 'api_key' => config('services.usda.key'),
@@ -34,14 +34,14 @@ class ProductosController extends Controller
             if ($response->successful() && !empty($response['foods'][0])) {
                 $food = $response['foods'][0];
 
-                // Guardar producto
+                //Guardar producto
                 $producto = new Productos();
                 $producto->codigo_barra = $barcode;
                 $producto->nombre = $food['description'] ?? 'Producto sin nombre';
                 $producto->marca = $food['brandOwner'] ?? 'Desconocida';
                 $producto->descripcion = $food['ingredients'] ?? null;
 
-                // Imagen por defecto
+                //Imagen por defecto
                 $producto->img = 'images/default.webp';
 
                 $producto->save();
@@ -63,12 +63,11 @@ class ProductosController extends Controller
             return redirect()->back()->with('error', 'Error al conectar con la API USDA: ' . $e->getMessage());
         }
 
-        // 3️⃣ Si no se encuentra
+        //Si no se encuentra
         return redirect()->back()->with('error', 'Producto no encontrado ni en la BD ni en la API USDA.');
     }
     public function inicio()
     {
-        // 🔹 Opción 1: últimos 6 productos
         $productos = Productos::inRandomOrder()->take(6)->get();
 
         return view('home', compact('productos'));
@@ -81,6 +80,46 @@ class ProductosController extends Controller
 
         // Retornar la vista de detalle del producto
         return view('Producto', compact('producto'));
+    }
+
+    public function addToCompare(Request $request)
+    {
+        $id = $request->input('id');
+        $producto = Productos::findOrFail($id);
+
+        $compare = session()->get('compare', []);
+
+        //Limitar a máximo 4 productos
+        if (count($compare) >= 4 && !isset($compare[$id])) {
+            return back()->with('error', 'Solo puedes comparar hasta 4 productos.');
+        }
+
+        $compare[$id] = $producto;
+        session()->put('compare', $compare);
+
+        return back()->with('success', 'Producto agregado a la comparación.');
+    }
+
+    public function showCompare()
+    {
+        $compare = session()->get('compare', []);
+        return view('comparar', compact('compare'));
+    }
+
+    public function removeFromCompare($id)
+    {
+        $compare = session()->get('compare', []);
+        if (isset($compare[$id])) {
+            unset($compare[$id]);
+            session()->put('compare', $compare);
+        }
+        return back()->with('success', 'Producto eliminado de la comparación.');
+    }
+
+    public function clearCompare()
+    {
+        session()->forget('compare');
+        return back()->with('success', 'Lista de comparación vaciada.');
     }
 
 }

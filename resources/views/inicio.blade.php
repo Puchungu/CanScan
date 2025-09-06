@@ -30,6 +30,13 @@
                                class="btn btn-outline-primary btn-sm rounded-pill">
                                 Ver detalles
                             </a>
+                            <form action="{{ route('comparar.add') }}" method="POST" class="mt-2">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $producto->id }}">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm rounded-pill">
+                                    <i class="bi bi-bar-chart"></i> Comparar
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

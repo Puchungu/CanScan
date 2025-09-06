@@ -33,6 +33,12 @@ Route::get('/profile', function () {
 
 Route::post('/barcode', [productosController::class, 'mostrarProducto'])->name('barcode.scan');
 
+// Comparar productos
+Route::post('/comparar/add', [ProductosController::class, 'addToCompare'])->name('comparar.add');
+Route::get('/comparar', [ProductosController::class, 'showCompare'])->name('comparar.show');
+Route::post('/comparar/remove/{id}', [ProductosController::class, 'removeFromCompare'])->name('comparar.remove');
+Route::post('/comparar/clear', [ProductosController::class, 'clearCompare'])->name('comparar.clear');
+
 // -----------------------------
 // RUTAS CON AUTENTICACIÓN
 // -----------------------------

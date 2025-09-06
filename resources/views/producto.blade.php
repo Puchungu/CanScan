@@ -49,16 +49,20 @@
                         </div>
                     @endforeach
                 </div>
-
                 <a href="{{ route('barcode') }}" class="btn btn-primary w-100 mt-4 py-2 fw-semibold">
                     Escanear otro producto
                 </a>
+                <form action="{{ route('comparar.add') }}" method="POST" class="mt-2">
+                    @csrf
+                        <input type="hidden" name="id" value="{{ $producto->id }}">
+                    <button type="submit" class="btn btn-outline-secondary btn-sm w-100 mt-2 py-2 fw-semibold">
+                        <i class="bi bi-bar-chart"></i> Comparar
+                    </button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
-{{-- Estilo extra para hover --}}
 <style>
     .hover-shadow:hover {
         box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
