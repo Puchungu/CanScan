@@ -26,12 +26,11 @@ function startCamera() {
         inputStream : {
             name : "Live",
             type : "LiveStream",
-            target: camaraDiv,
+            target: camaraDiv, // Div donde se mostrará la cámara
             constraints: {
-                facingMode: "environment",
-                advance:[{zoom:2}],
-                width: { min: 720 },
-                height: { min: 480 }
+                width: 640,
+                height: 480,
+                facingMode: "environment" // Usar cámara trasera si está disponible
     }
 
         },
