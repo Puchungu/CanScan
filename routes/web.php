@@ -31,6 +31,8 @@ Route::get('/profile', function () {
         return view('barcode');
     })->name('barcode');
 
+Route::post('/barcode', [productosController::class, 'mostrarProducto'])->name('barcode.scan');
+
 // -----------------------------
 // RUTAS CON AUTENTICACIÓN
 // -----------------------------
@@ -69,9 +71,6 @@ Route::middleware('auth')->group(function () {
         $request->user()->sendEmailVerificationNotification();
         return back()->with('message', 'Correo de verificación reenviado.');
     })->middleware('throttle:6,1')->name('verification.send');
-
-
-    Route::post('/barcode', [productosController::class, 'mostrarProducto'])->name('barcode.scan');
 
     Route::get('/barcode/list', function () {
         return view('barcode-list');
