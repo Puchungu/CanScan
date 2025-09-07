@@ -49,14 +49,23 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:8'
         ]);
+
         if (Auth::attempt($validated)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            if($user->email_verified_at === null) {
+
+            // Si no es admin, verificar email
+            if ($user->username !== 'admin' && $user->email_verified_at === null) {
                 Auth::logout();
                 return redirect()->route('login')->with('error', 'Por favor, verifica tu correo electrónico antes de iniciar sesión.');
             }
-            return redirect()->route('mostrar.Inicio');
+
+            // Redirigir según si es admin o usuario normal
+            if ($user->username === 'admin') {
+                return redirect()->route('admin.productos.index');
+            } else {
+                return redirect()->route('mostrar.Inicio');
+            }
         } else {
             return redirect()->route('login')->with('error', 'El correo o la contrasena son incorrectos.');
         }

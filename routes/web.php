@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\productosController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
@@ -38,6 +39,22 @@ Route::post('/comparar/add', [ProductosController::class, 'addToCompare'])->name
 Route::get('/comparar', [ProductosController::class, 'showCompare'])->name('comparar.show');
 Route::post('/comparar/remove/{id}', [ProductosController::class, 'removeFromCompare'])->name('comparar.remove');
 Route::post('/comparar/clear', [ProductosController::class, 'clearCompare'])->name('comparar.clear');
+
+// Rutas de productos admin
+Route::get('/admin/productos', [AdminController::class, 'listarProductos'])->name('admin.productos.index');
+Route::get('/admin/productos/create', [AdminController::class, 'crearProducto'])->name('admin.productos.create');
+Route::post('/admin/productos', [AdminController::class, 'guardarProducto'])->name('admin.productos.store');
+Route::get('/admin/productos/{id}/edit', [AdminController::class, 'editarProducto'])->name('admin.productos.edit');
+Route::put('/admin/productos/{id}', [AdminController::class, 'actualizarProducto'])->name('admin.productos.update');
+Route::delete('/admin/productos/{id}', [AdminController::class, 'eliminarProducto'])->name('admin.productos.destroy');
+
+// Rutas de usuarios admin
+Route::get('/admin/usuarios', [AdminController::class, 'listarUsuarios'])->name('admin.usuarios.index');
+Route::get('/admin/usuarios/create', [AdminController::class, 'crearUsuario'])->name('admin.usuarios.create');
+Route::post('/admin/usuarios', [AdminController::class, 'guardarUsuario'])->name('admin.usuarios.store');
+Route::get('/admin/usuarios/{id}/edit', [AdminController::class, 'editarUsuario'])->name('admin.usuarios.edit');
+Route::put('/admin/usuarios/{id}', [AdminController::class, 'actualizarUsuario'])->name('admin.usuarios.update');
+Route::delete('/admin/usuarios/{id}', [AdminController::class, 'eliminarUsuario'])->name('admin.usuarios.destroy');
 
 // -----------------------------
 // RUTAS CON AUTENTICACIÓN
