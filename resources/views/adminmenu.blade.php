@@ -19,8 +19,12 @@
             <span class="nav-icon bi bi-people"></span>
             <span> Ver Usuarios</span>
         </a>
-        <a href="{{ route('admin.productos.create') }}" class="nav-link">
-            <i class="bi bi-plus-circle"></i> Agregar Producto
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+        <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <span class="nav-icon bi bi-box-arrow-right"></span>
+            <span>Cerrar Sesion</span>
         </a>
     </nav>    
 </body>
