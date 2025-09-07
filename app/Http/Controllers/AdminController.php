@@ -100,7 +100,6 @@ class AdminController extends Controller
     ]);
 
     $validated['password'] = Hash::make($validated['password']);
-    dd($validated); 
 
     // Asegúrate de que este es el modelo correcto
     $user = Usuarios::create($validated); 
