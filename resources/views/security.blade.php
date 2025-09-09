@@ -11,10 +11,14 @@
     </div>
     <div class="container py-4" style="max-width: 600px;">
         @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+            <div class="alert alert-success">{{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif
         @if(session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
+            <div class="alert alert-danger">{{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         @endif
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -23,6 +27,7 @@
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         <form method="POST" action="{{ route('update.password') }}">

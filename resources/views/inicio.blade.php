@@ -11,7 +11,18 @@
         <h1 class="fw-bold text-primary">Bienvenido a CanScan</h1>
         <p class="text-muted">Explora algunos de los productos registrados en nuestra base de datos</p>
     </div>
-
+    @if(session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger text-center">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     @if($productos->count())
         <div class="row row-cols-1 row-cols-md-3 g-4">
             @foreach ($productos as $producto)

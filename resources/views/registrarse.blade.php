@@ -18,11 +18,13 @@
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
             @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
             <h1 class="h1 text-center titulo-principal">Registrarse</h1>
