@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
         return view('security');
     })->name('security');
 
-    Route::post('/change-password', [AuthController::class, 'updatePassword'])->name('update.password');
+    Route::put('/change-password', [AuthController::class, 'updatePassword'])->name('update.password');
 
     Route::post('/logout', [AuthController::class, 'cerrarSesion'])->name('logout');
 
