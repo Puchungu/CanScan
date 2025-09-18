@@ -35,7 +35,7 @@ function startCamera() {
 
         },
         decoder : {
-            readers : ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "upc_reader", "upc_e_reader"]
+            readers : ["ean_reader", "ean_8_reader", "code_128_reader"] // Lectores de códigos de barras
         }
 
     }, function(err) {
