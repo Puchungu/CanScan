@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 // RUTAS PÚBLICAS
 // -----------------------------
 Route::get('/registrarse', [AuthController::class, 'mostrarRegistro'])->name('mostrar.Registro');
-Route::post('/registrarse', [AuthController::class, 'Registrar'])->name('Registrarse');
+Route::post('/registrarse', [AuthController::class, 'registrar'])->name('Registrarse');
 
 Route::get('/login', [AuthController::class, 'mostrarInicioSesion'])->name('login');
 Route::post('/login', [AuthController::class, 'iniciarSesion'])->name('iniciarSesion');

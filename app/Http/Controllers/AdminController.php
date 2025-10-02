@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
+    private  const MARCA_VALIDATION_RULES = 'nullable|string';
+    private  const DESCRIPCION_VALIDATION_RULES = 'nullable|string';
+    private  const IMG_VALIDATION_RULES = 'nullable|string';
 // Mostrar todos los productos en la vista
     public function listarProductos()
     {
@@ -28,9 +31,9 @@ class AdminController extends Controller
         $request->validate([
             'nombre' => 'required|string|unique:productos,nombre|max:255',
             'codigo_barra' => 'required|string',
-            'marca' => 'nullable|string',
-            'descripcion' => 'nullable|string',
-            'img' => 'nullable|string',
+            'marca' => self::MARCA_VALIDATION_RULES,
+            'descripcion' => self::DESCRIPCION_VALIDATION_RULES,
+            'img' => self::IMG_VALIDATION_RULES,
         ]);
 
         Productos::create($request->all());
@@ -54,9 +57,9 @@ class AdminController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255|unique:productos,nombre,' . $producto->id,
             'codigo_barra' => 'required|string',
-            'marca' => 'nullable|string',
-            'descripcion' => 'nullable|string',
-            'img' => 'nullable|string',
+            'marca' => self::MARCA_VALIDATION_RULES,
+            'descripcion' => self::DESCRIPCION_VALIDATION_RULES,
+            'img' => self::IMG_VALIDATION_RULES,
         ]);
 
         $producto->update($request->all());
@@ -93,8 +96,8 @@ class AdminController extends Controller
     {
     $validated = $request->validate([
         'nombre' => 'required|string|max:255',
-        'username' => 'required|string|unique:usuarios,username', 
-        'email' => 'required|string|email|unique:usuarios,email', 
+        'username' => 'required|string|unique:usuarios,username',
+        'email' => 'required|string|email|unique:usuarios,email',
         'password' => 'required|string|min:8',
         'avatar' => 'nullable|string',
     ]);
@@ -102,7 +105,7 @@ class AdminController extends Controller
     $validated['password'] = Hash::make($validated['password']);
 
     // Asegúrate de que este es el modelo correcto
-    $user = Usuarios::create($validated); 
+    Usuarios::create($validated);
 
     return redirect()->route('admin.usuarios.index')->with('success', 'Usuario creado correctamente');
     }

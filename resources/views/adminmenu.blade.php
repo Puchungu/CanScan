@@ -22,10 +22,13 @@
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>
-        <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+        @csrf
+        <button type="submit" class="nav-link" style="background: none; border: none; padding: 0; cursor: pointer;">
             <span class="nav-icon bi bi-box-arrow-right"></span>
-            <span>Cerrar Sesion</span>
-        </a>
-    </nav>    
+            <span>Cerrar Sesión</span>
+        </button>
+    </form>
+    </nav>
 </body>
 

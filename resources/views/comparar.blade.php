@@ -14,8 +14,8 @@
                         <th>Atributo</th>
                         @foreach($compare as $producto)
                             <th>
-                                <img src="{{ asset($producto->img ?? 'images/default.webp') }}" 
-                                     alt="{{ $producto->nombre }}" 
+                                <img src="{{ asset($producto->img ?? 'images/default.webp') }}"
+                                     alt="{{ $producto->nombre }}"
                                      width="80" height="80" class="mb-2 rounded">
                                 <br>
                                 {{ $producto->nombre }}

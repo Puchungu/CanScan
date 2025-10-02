@@ -37,10 +37,10 @@
             <h1 class="h1 text-center titulo-principal">Iniciar sesion</h1>
             <form action="{{ route('iniciarSesion') }}" method="POST" class="form-auth">
                 @csrf
-                <label class="encabezado">Correo electronico</label>
-                <input type="text" name="email" required class="form-control mb-2" placeholder="Correo electronico">
-                <label class="encabezado">Contrasena</label>
-                <input type="password" name="password" required class="form-control mb-2" placeholder="Contrasena">
+                <label for="email" class="encabezado">Correo electronico</label>
+                <input type="text" id="email" name="email" required class="form-control mb-2" placeholder="Correo electronico">
+                <label for="password" class="encabezado">Contrasena</label>
+                <input type="password" id="password" name="password" required class="form-control mb-2" placeholder="Contrasena">
                 <div class="d-flex gap-5 mb-2">
                     <a href="{{ route('mostrar.Registro') }}" class="page-link">Crear cuenta</a>
                     <a href="{{ route('password.request') }}" class="page-link">¿Olvidaste tu contraseña?</a>

@@ -13,12 +13,18 @@ use App\Models\Productos;
 
 class AuthController extends Controller
 {
-    public function Registrar(Request $request){
+    private const EMAIL_VALIDATION_RULES = 'required|email';
+    private const USERNAME_VALIDATION_RULES = 'required|max:30|unique:usuarios';
+    private const PASSWORD_VALIDATION_RULES = 'required|min:8';
+    private const NAME_VALIDATION_RULES = 'required';
+
+    
+    public function registrar(Request $request){
        $validated = $request->validate([
-            'nombre' => 'required',
-            'username' => 'required|max:30|unique:usuarios',
-            'email' => 'required|email|unique:usuarios',
-            'password' => 'required|min:8'
+            'nombre' => self::NAME_VALIDATION_RULES,
+            'username' => self::USERNAME_VALIDATION_RULES,
+            'email' => self::EMAIL_VALIDATION_RULES,
+            'password' => self::PASSWORD_VALIDATION_RULES . '|confirmed',
         ]);
         //Encripta la contraseña antes de guardarla
         $validated['password'] = Hash::make($validated['password']);
@@ -47,28 +53,26 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:8'
+            'password' => 'required|min:8',
         ]);
 
-        if (Auth::attempt($validated)) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-
-            // Si no es admin, verificar email
-            if ($user->username !== 'admin' && $user->email_verified_at === null) {
-                Auth::logout();
-                return redirect()->route('login')->with('error', 'Por favor, verifica tu correo electrónico antes de iniciar sesión.');
-            }
-
-            // Redirigir según si es admin o usuario normal
-            if ($user->username === 'admin') {
-                return redirect()->route('admin.productos.index');
-            } else {
-                return redirect()->route('mostrar.Inicio');
-            }
-        } else {
-            return redirect()->route('login')->with('error', 'El correo o la contrasena son incorrectos.');
+        if (!Auth::attempt($validated)) {
+            return redirect()->route('login')->with('error', 'El correo o la contraseña son incorrectos.');
         }
+
+        $request->session()->regenerate();
+        $user = Auth::user();
+
+        if ($user->username !== 'admin' && $user->email_verified_at === null) {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Por favor, verifica tu correo electrónico antes de iniciar sesión.');
+        }
+
+        if ($user->username === 'admin') {
+            return redirect()->route('admin.productos.index');
+        }
+        
+        return redirect()->route('mostrar.inicio');
     }
 
     public function cerrarSesion(Request $request)
@@ -83,8 +87,8 @@ class AuthController extends Controller
     {
         $user = Auth::user();
         $validated = $request->validate([
-            'nombre' => 'required|string|max:255',
-            'username' => 'required|string|max:30|unique:usuarios,username,' . $user->id,
+            'nombre' => self::NAME_VALIDATION_RULES,
+            'username' => 'required|max:30|unique:usuarios,username,' . $user->id,
             'email' => 'required|email|unique:usuarios,email,' . $user->id,
         ]);
 
@@ -144,7 +148,7 @@ public function resetPassword(Request $request)
     $request->validate([
         'token' => 'required',
         'email' => 'required|email',
-        'password' => 'required|confirmed|min:8',
+        'password' => 'required|min:8|confirmed',
     ]);
 
     $status = Password::broker('users')->reset(

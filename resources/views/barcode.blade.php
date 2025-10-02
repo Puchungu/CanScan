@@ -48,8 +48,8 @@
     <!-- Formulario -->
     <form action="{{ route('barcode.scan') }}" method="POST">
         @csrf
-        <input id="barcode-input" name="barcode" type="text" 
-               class="form-control barcode-input mb-3" 
+        <input id="barcode-input" name="barcode" type="text"
+               class="form-control barcode-input mb-3"
                placeholder="Escribe el código de barras" required>
 
         <div class="d-grid">

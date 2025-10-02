@@ -1,4 +1,4 @@
-import Quagga, { halfSample } from 'quagga';
+import Quagga from 'quagga';
 
 let cameraActive = false;
 
@@ -59,8 +59,10 @@ function startCamera() {
 
 // Escuchar el resultado del escaneo
 Quagga.onDetected(function(result) {
-    if (barcodeInput && result && result.codeResult && result.codeResult.code) {
-        barcodeInput.value = result.codeResult.code;
+    const code = result?.codeResult?.code;
+
+    if (barcodeInput && code) {
+        barcodeInput.value=code;
     }
 });
 function stopCamera() {
@@ -69,8 +71,6 @@ function stopCamera() {
     toggleButton.textContent = "Encender cámara";
     toggleButton.classList.remove('btn-rojo');
     toggleButton.classList.add('btn-outline-success');
-    if (imgOn && imgOff) {
-    }
     if (camaraDiv) {
         camaraDiv.innerHTML = cameraSVG;
     }

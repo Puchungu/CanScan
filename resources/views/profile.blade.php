@@ -8,11 +8,11 @@
 <div class="container py-4" style="max-width: 800px;">
     <!-- Cabecera del perfil -->
     <div class="text-center mb-4 position-relative">
-        <img id="current-avatar" 
-             src="{{ Auth::user()->avatar ? asset('avatars/' . Auth::user()->avatar . '.png') : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->nombre) . '&background=random&color=fff' }}" 
-             alt="Foto de perfil" 
-             class="rounded-circle shadow-sm mb-3" 
-             width="120" 
+        <img id="current-avatar"
+             src="{{ Auth::user()->avatar ? asset('avatars/' . Auth::user()->avatar . '.png') : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->nombre) . '&background=random&color=fff' }}"
+             alt="Foto de perfil"
+             class="rounded-circle shadow-sm mb-3"
+             width="120"
              height="120"
              style="cursor: pointer;">
         <p class="text-muted small">Haz click en tu avatar para cambiarlo</p>
@@ -31,10 +31,10 @@
                         @csrf
                         <input type="hidden" name="avatar" value="{{ $a }}">
                         <button type="submit" class="btn p-0 border-0">
-                            <img src="{{ asset('avatars/' . $a . '.png') }}" 
-                                 class="rounded-circle {{ Auth::user()->avatar === $a ? 'border border-primary border-3' : '' }}" 
+                            <img src="{{ asset('avatars/' . $a . '.png') }}"
+                                 class="rounded-circle {{ Auth::user()->avatar === $a ? 'border border-primary border-3' : '' }}"
                                  width="80" height="80"
-                                 style="cursor:pointer">
+                                 style="cursor:pointer" alt="Avatar {{ $a }}">
                         </button>
                     </form>
                 @endforeach

@@ -30,14 +30,14 @@
             <h1 class="h1 text-center titulo-principal">Registrarse</h1>
             <form action="{{ route('Registrarse') }}" method="POST" enctype="multipart/form-data" class="form-auth">
                 @csrf
-                <label class="encabezado">Nombre</label>
-                <input type="text" name="nombre" class="form-control mb-2" placeholder="Nombre">
-                <label class="encabezado">Nombre de usuario</label>
-                <input type="text" name="username" class="form-control mb-2" placeholder="Username">
-                <label class="encabezado">Correo electronico</label>
-                <input type="text" name="email" class="form-control mb-2" placeholder="Correo electronico">
-                <label class="encabezado">Contrasena</label>
-                <input type="password" name="password" class="form-control mb-2" placeholder="Contrasena">
+                <label for="nombre" class="encabezado">Nombre</label>
+                <input type="text" id="nombre" name="nombre" class="form-control mb-2" placeholder="Nombre">
+                <label for="username" class="encabezado">Nombre de usuario</label>
+                <input type="text" id="username" name="username" class="form-control mb-2" placeholder="Username">
+                <label for="email" class="encabezado">Correo electronico</label>
+                <input type="text" id="email" name="email" class="form-control mb-2" placeholder="Correo electronico">
+                <label for="password" class="encabezado">Contrasena</label>
+                <input type="password" id="password" name="password" class="form-control mb-2" placeholder="Contrasena">
                     <a href="{{ route('login') }}" class="page-link mb-2">Ya tienes cuenta?, Inicia sesión</a>
                 <button type="submit" class="btn btn-primary w-100 btn-register">Registrarse</button>
             </form>

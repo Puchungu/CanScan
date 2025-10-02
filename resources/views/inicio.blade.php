@@ -37,7 +37,7 @@
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">{{ $producto->nombre }}</h5>
                             <p class="text-muted mb-2">Marca: {{ $producto->marca }}</p>
-                            <a href="{{ route('producto.show', $producto->id) }}" 
+                            <a href="{{ route('producto.show', $producto->id) }}"
                                class="btn btn-outline-primary btn-sm rounded-pill">
                                 Ver detalles
                             </a>
