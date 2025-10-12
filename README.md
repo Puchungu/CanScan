@@ -52,3 +52,20 @@ php artisan serve
 ```bash
 npm run dev
 ```
+
+### 11. Ejecutar el Queue Worker
+```bash
+php artisan queue:work
+```
+
+### 12. Configurar el servidor de envio de email.
+```bash
+MAIL_MAILER=smtp
+MAIL_HOST=smtp-relay.brevo.com
+MAIL_PORT=587
+MAIL_USERNAME=9706ff001@smtp-brevo.com
+MAIL_PASSWORD=OKL9SVG7BRvq8Tzp
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=no-reply@canscan.site
+MAIL_FROM_NAME="${APP_NAME}"
+```
