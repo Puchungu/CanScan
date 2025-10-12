@@ -106,4 +106,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sugerir-producto', [ProductosController::class, 'sugerirProducto'])->name('sugerir.producto');
     Route::post('/sugerir-producto', [ProductosController::class, 'guardarSugerencia'])->name('store.producto');
+
+    Route::get('/support-center', [AuthController::class, 'showSupportCenter'])->name('support.center');
+    Route::get('/faqs', [AuthController::class, 'showFAQs'])->name('faqs');
 });

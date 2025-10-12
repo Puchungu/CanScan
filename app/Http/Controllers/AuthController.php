@@ -114,84 +114,91 @@ class AuthController extends Controller
     }
 
     //Mostrar formulario "Olvidé mi contraseña"
-public function showForgotPasswordForm()
-{
-    return view('forgot'); //vista para pedir enlace de reset
-}
+    public function showForgotPasswordForm()
+    {
+        return view('forgot'); //vista para pedir enlace de reset
+    }
 
-//Enviar enlace de restablecimiento
-public function sendResetLinkEmail(Request $request)
-{
-    $request->validate(['email' => 'required|email']);
+    //Enviar enlace de restablecimiento
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
 
-    $status = Password::broker('users')->sendResetLink(
-        $request->only('email')
-    );
+        $status = Password::broker('users')->sendResetLink(
+            $request->only('email')
+        );
 
-    return $status === Password::RESET_LINK_SENT
-        ? back()->with('status', __($status))
-        : back()->withErrors(['email' => __($status)]);
-}
+        return $status === Password::RESET_LINK_SENT
+            ? back()->with('status', __($status))
+            : back()->withErrors(['email' => __($status)]);
+    }
 
-//Mostrar formulario para nueva contraseña
-public function showResetForm(Request $request, $token)
-{
-    return view('reset', [
-        'token' => $token,
-        'email' => $request->query('email'),
-    ]);
-}
+    //Mostrar formulario para nueva contraseña
+    public function showResetForm(Request $request, $token)
+    {
+        return view('reset', [
+            'token' => $token,
+            'email' => $request->query('email'),
+        ]);
+    }
 
-//Guardar la nueva contraseña
-public function resetPassword(Request $request)
-{
-    $request->validate([
-        'token' => 'required',
-        'email' => 'required|email',
-        'password' => 'required|min:8|confirmed',
-    ]);
+    //Guardar la nueva contraseña
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
 
-    $status = Password::broker('users')->reset(
-        $request->only('email', 'password', 'password_confirmation', 'token'),
-        function ($user, $password) {
-            $user->forceFill([
-                'password' => Hash::make($password),
-            ])->setRememberToken(Str::random(60));
-            $user->save();
+        $status = Password::broker('users')->reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                ])->setRememberToken(Str::random(60));
+                $user->save();
 
-            event(new PasswordReset($user));
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withErrors(['email' => __($status)]);
+    }
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required'],
+            'new_password' => ['required', 'min:8', 'confirmed'],
+        ], [
+            'current_password.required' => 'Debes ingresar tu contraseña actual.',
+            'new_password.required' => 'Debes ingresar una nueva contraseña.',
+            'new_password.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',
+            'new_password.confirmed' => 'La confirmación de la nueva contraseña no coincide.',
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('error', 'La contraseña actual es incorrecta.');
         }
-    );
 
-    return $status === Password::PASSWORD_RESET
-        ? redirect()->route('login')->with('status', __($status))
-        : back()->withErrors(['email' => __($status)]);
-}
-public function updatePassword(Request $request)
-{
-    $request->validate([
-        'current_password' => ['required'],
-        'new_password' => ['required', 'min:8', 'confirmed'],
-    ], [
-        'current_password.required' => 'Debes ingresar tu contraseña actual.',
-        'new_password.required' => 'Debes ingresar una nueva contraseña.',
-        'new_password.min' => 'La nueva contraseña debe tener al menos 8 caracteres.',
-        'new_password.confirmed' => 'La confirmación de la nueva contraseña no coincide.',
-    ]);
+        if (Hash::check($request->new_password, $user->password)) {
+            return back()->with('error', 'La nueva contraseña no puede ser igual a la actual.');
+        }
 
-    $user = Auth::user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
 
-    if (!Hash::check($request->current_password, $user->password)) {
-        return back()->with('error', 'La contraseña actual es incorrecta.');
+        return back()->with('success', 'Contraseña actualizada correctamente.');
     }
-
-    if (Hash::check($request->new_password, $user->password)) {
-        return back()->with('error', 'La nueva contraseña no puede ser igual a la actual.');
+    public function showSupportCenter()
+    {
+        return view('support-center');
     }
-
-    $user->password = Hash::make($request->new_password);
-    $user->save();
-
-    return back()->with('success', 'Contraseña actualizada correctamente.');
-}
+    public function showFAQs(){
+        return view('faqs');
+    }
 }

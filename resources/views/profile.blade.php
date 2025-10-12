@@ -53,6 +53,10 @@
             <span><i class="bi bi-shield-lock me-2"></i>Seguridad</span>
             <i class="bi bi-chevron-right"></i>
         </a>
+        <a href="{{ route('support.center') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-question-circle-fill me-2"></i>Centro de soporte</span>
+            <i class="bi bi-chevron-right"></i>
+        </a>
     </div>
 
     <!-- Cerrar sesión -->
