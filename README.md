@@ -6,6 +6,12 @@ Este es uan webapp desarrollada con bootstrap, laravel, vite y css.
 
 # ⚙️ Instalación y configuración del proyecto
 
+### INSTALAR PHP, COMPOSER Y EL INSTALADOR DE LARAVEL
+```bash
+# Run as administrator ON WINDOWS POWERSHELL...
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://php.new/install/windows/8.4'))
+```
+
 ### 1. Clonar el repositorio
 
 ```bash
