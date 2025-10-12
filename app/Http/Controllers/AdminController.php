@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Productos;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Hash;
+use App\Models\SugerenciaProducto;
 
 class AdminController extends Controller
 {
@@ -141,5 +142,34 @@ class AdminController extends Controller
 
         return redirect()->route('admin.usuarios.index')
                          ->with('success', 'Usuario eliminado correctamente');
+    }
+
+    public function showSugerencias(){
+        $sugerencias = SugerenciaProducto::where('status', 'pendiente')->get();
+        return view('sugerenciasadmin', compact('sugerencias'));
+    }
+
+    public function aprobarSugerencia($id)
+    {
+        $sugerencia = SugerenciaProducto::findOrFail($id);
+
+        // Cambiamos el estado de la sugerencia a 'aprobada'
+        $sugerencia->status = 'aprobada';
+        $sugerencia->save();
+
+        // Redirigimos al formulario de creación de productos, pero pasándole
+        // los datos de la sugerencia para que el admin solo tenga que confirmar o completar.
+        return redirect()->route('admin.productos.create')->with('sugerencia', $sugerencia);
+    }
+    public function rechazarSugerencia($id)
+    {
+        $sugerencia = SugerenciaProducto::findOrFail($id);
+
+        // Cambiamos el estado a 'rechazada'
+        $sugerencia->status = 'rechazada';
+        $sugerencia->save();
+
+        // Redirigimos de vuelta a la lista con un mensaje de éxito
+        return redirect()->route('admin.sugerencias.index')->with('success', 'Sugerencia rechazada correctamente.');
     }
 }

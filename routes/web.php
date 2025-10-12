@@ -56,6 +56,11 @@ Route::get('/admin/usuarios/{id}/edit', [AdminController::class, 'editarUsuario'
 Route::put('/admin/usuarios/{id}', [AdminController::class, 'actualizarUsuario'])->name('admin.usuarios.update');
 Route::delete('/admin/usuarios/{id}', [AdminController::class, 'eliminarUsuario'])->name('admin.usuarios.destroy');
 
+// Ruta para ver sugerencias
+Route::get('/admin/sugerencias', [AdminController::class, 'showSugerencias'])->name('admin.sugerencias.index');
+Route::get('/admin/sugerencias/{id}/aprobar', [AdminController::class, 'aprobarSugerencia'])->name('admin.sugerencias.aprobar');
+Route::post('/admin/sugerencias/{id}/rechazar', [AdminController::class, 'rechazarSugerencia'])->name('admin.sugerencias.rechazar');
+
 // -----------------------------
 // RUTAS CON AUTENTICACIÓN
 // -----------------------------
@@ -98,4 +103,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/barcode/list', function () {
         return view('barcode-list');
     })->name('barcode.list');
+
+    Route::get('/sugerir-producto', [ProductosController::class, 'sugerirProducto'])->name('sugerir.producto');
+    Route::post('/sugerir-producto', [ProductosController::class, 'guardarSugerencia'])->name('store.producto');
 });

@@ -15,17 +15,17 @@
 
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" class="form-control" required>
+                <input type="text" name="nombre" class="form-control" value="{{ session('sugerencia.nombre') ?? old('nombre') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="codigo_barra" class="form-label">Código de Barra</label>
-                <input type="text" name="codigo_barra" class="form-control" required>
+                <input type="text" name="codigo_barra" class="form-control" value="{{ session('sugerencia.codigo_barra') ?? old('codigo_barra') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="marca" class="form-label">Marca</label>
-                <input type="text" name="marca" class="form-control" placeholder="Desconocida">
+                <input type="text" name="marca" class="form-control" value="{{ session('sugerencia.marca') ?? old('marca') }}" placeholder="Desconodida">
             </div>
 
             <div class="mb-3">

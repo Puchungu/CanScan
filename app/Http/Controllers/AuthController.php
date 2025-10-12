@@ -72,7 +72,7 @@ class AuthController extends Controller
             return redirect()->route('admin.productos.index');
         }
         
-        return redirect()->route('mostrar.inicio');
+        return redirect()->route('mostrar.Inicio');
     }
 
     public function cerrarSesion(Request $request)

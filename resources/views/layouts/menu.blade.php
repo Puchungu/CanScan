@@ -23,10 +23,14 @@
             <span class="nav-icon bi bi-upc-scan"></span>
             <span>Escanear</span>
         </a>
-        <a href="{{ route('comparar.show') }}" class="nav-link position-relative">
+        <a href="{{ route('sugerir.producto') }}" class="nav-link {{ Request::routeIs('sugerir.producto') ? 'active' : '' }}">
+            <span class="nav-icon bi bi-plus-circle"></span>
+            <span>Sugerir Producto</span>
+        </a>
+        <a href="{{ route('comparar.show') }}" class="nav-link {{ Request::routeIs('comparar.show') ? 'active' : '' }}">
             <i class="bi bi-bar-chart"></i> Comparar
             @if(session('compare') && count(session('compare')) > 0)
-                <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">
+                <span class="badge bg-danger rounded-pill position-absolute top-0 start-60 translate-middle">
                     {{ count(session('compare')) }}
                 </span>
             @endif
@@ -36,6 +40,6 @@
             <span>Perfil</span>
         </a>
     </nav>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
 </html>

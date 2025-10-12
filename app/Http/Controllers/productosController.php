@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Productos;
 use App\Models\Componentes;
+use App\Models\SugerenciaProducto;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -122,4 +124,20 @@ class ProductosController extends Controller
         return back()->with('success', 'Lista de comparación vaciada.');
     }
 
+    public function sugerirProducto()
+    {
+        return view('sugerir_producto');
+    }
+
+    public function guardarSugerencia(Request $request)
+    {
+    $validatedData = $request->validate([
+        'nombre' => 'required|string|max:255',
+        'marca' => 'string|max:255',
+        'codigo_barra' => 'string|max:50',
+    ]);
+    $validatedData['user_id'] = Auth::id();
+    SugerenciaProducto::create($validatedData);
+    return redirect()->route('sugerir.producto')->with('success', 'Gracias por tu sugerencia. La revisaremos pronto.');
+    }
 }

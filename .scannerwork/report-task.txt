@@ -1,6 +1,6 @@
-projectKey=canscan
+projectKey=Canscan
 serverUrl=http://localhost:9000
 serverVersion=25.9.0.112764
-dashboardUrl=http://localhost:9000/dashboard?id=canscan
-ceTaskId=06da9813-83cf-4ac0-b651-91f211b72422
-ceTaskUrl=http://localhost:9000/api/ce/task?id=06da9813-83cf-4ac0-b651-91f211b72422
+dashboardUrl=http://localhost:9000/dashboard?id=Canscan
+ceTaskId=331f5290-ca32-4ad0-b30c-3cc8252da0d4
+ceTaskUrl=http://localhost:9000/api/ce/task?id=331f5290-ca32-4ad0-b30c-3cc8252da0d4

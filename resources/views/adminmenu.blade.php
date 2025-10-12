@@ -19,6 +19,10 @@
             <span class="nav-icon bi bi-people"></span>
             <span> Ver Usuarios</span>
         </a>
+        <a href="{{ route('admin.sugerencias.index') }}" class="nav-link {{ Request::routeIs('admin.sugerencias.index') ? 'active' : '' }}">
+            <span class="nav-icon bi bi-chat-dots"></span>
+            <span> Ver Sugerencias</span>
+        </a>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>
