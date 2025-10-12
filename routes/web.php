@@ -109,4 +109,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/support-center', [AuthController::class, 'showSupportCenter'])->name('support.center');
     Route::get('/faqs', [AuthController::class, 'showFAQs'])->name('faqs');
+    Route::get('/soporte/reportar', [AuthController::class, 'showContactForm'])->name('contact');
+    Route::post('/soporte/reportar', [AuthController::class, 'submitContactForm'])->name('report.error.submit');
 });

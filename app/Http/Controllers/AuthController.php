@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Models\Productos;
+use App\Mail\ReporteDeUsuario;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -200,5 +202,23 @@ class AuthController extends Controller
     }
     public function showFAQs(){
         return view('faqs');
+    }
+    public function showContactForm()
+    {
+        return view('contact');
+    }
+    public function submitContactForm(Request $request)
+    {
+        $validatedData = $request->validate([
+            'motivo' => 'required|string|in:error,sugerencia,consulta',
+            'asunto' => 'required|string|max:255',
+            'descripcion' => 'required|string|min:10',
+        ]);
+
+        $usuario = Auth::user();
+
+        Mail::to('soporte@canscan.site')->queue(new ReporteDeUsuario($validatedData, $usuario));
+
+        return back()->with('success', '¡Gracias! Hemos recibido tu mensaje y te responderemos pronto.');
     }
 }

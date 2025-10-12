@@ -16,7 +16,7 @@
             <i class="bi bi-chevron-right ms-auto"></i>
         </a>
 
-        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center py-3 mt-2">
+        <a href="{{ route('contact') }}" class="list-group-item list-group-item-action d-flex align-items-center py-3 mt-2">
             <i class="bi bi-envelope-paper-fill fs-2 me-4 text-danger"></i>
             <div>
                 <h5 class="mb-1">Contactar / Reportar un Error</h5>
