@@ -63,3 +63,13 @@ npm run dev
 ```bash
 php artisan queue:work
 ```
+
+### 12. Instalar Shepherd.js
+```bash
+npm install shepherd.js
+```
+
+### 13. Instalar Ziggy
+```bash
+composer require tightenco/ziggy
+```
