@@ -26,7 +26,7 @@ class AuthController extends Controller
             'nombre' => self::NAME_VALIDATION_RULES,
             'username' => self::USERNAME_VALIDATION_RULES,
             'email' => self::EMAIL_VALIDATION_RULES,
-            'password' => self::PASSWORD_VALIDATION_RULES . '|confirmed',
+            'password' => self::PASSWORD_VALIDATION_RULES
         ]);
         //Encripta la contraseña antes de guardarla
         $validated['password'] = Hash::make($validated['password']);
@@ -53,28 +53,35 @@ class AuthController extends Controller
 
     public function iniciarSesion(Request $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:8',
-        ]);
+    $validated = $request->validate([
+        'email' => self::EMAIL_VALIDATION_RULES,
+        'password' => 'required|min:8',
+    ]);
 
-        if (!Auth::attempt($validated)) {
-            return redirect()->route('login')->with('error', 'El correo o la contraseña son incorrectos.');
-        }
+    $redirect = redirect()->route('mostrar.Inicio'); // valor por defecto
 
+    if (!Auth::attempt($validated)) {
+        $redirect = redirect()->route('login')->with('error', 'El correo o la contraseña son incorrectos.');
+    } else {
         $request->session()->regenerate();
         $user = Auth::user();
 
+        $showTutorial = !$user->has_seen_tutorial;
+        if ($showTutorial) {
+            $user->has_seen_tutorial = true;
+            $user->save();
+        }
+        session(['show_tutorial' => $showTutorial]);
+
         if ($user->username !== 'admin' && $user->email_verified_at === null) {
             Auth::logout();
-            return redirect()->route('login')->with('error', 'Por favor, verifica tu correo electrónico antes de iniciar sesión.');
+            $redirect = redirect()->route('login')->with('error', 'Por favor, verifica tu correo electrónico antes de iniciar sesión.');
+        } elseif ($user->username === 'admin') {
+            $redirect = redirect()->route('admin.productos.index');
         }
+    }
 
-        if ($user->username === 'admin') {
-            return redirect()->route('admin.productos.index');
-        }
-        
-        return redirect()->route('mostrar.Inicio');
+    return $redirect;
     }
 
     public function cerrarSesion(Request $request)

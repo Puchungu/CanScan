@@ -183,3 +183,256 @@ document.addEventListener('DOMContentLoaded', function () {
     newPassword.addEventListener('input', checkPasswordFields);
     newPasswordConfirmation.addEventListener('input', checkPasswordFields);
 });
+
+
+import Shepherd from 'shepherd.js';
+import 'shepherd.js/dist/css/shepherd.css';
+
+if (globalThis.showTutorial) {
+    
+    const tour = new Shepherd.Tour({
+        useModalOverlay: true,
+        defaultStepOptions: {
+            scrollTo: true,
+            classes: 'bg-light shadow-lg rounded-3'
+        }
+    });
+    //PASO1: Página de Inicio (Botón de Inicio)
+    tour.addStep({
+        id: 'inicio-step',
+        title: '¡Bienvenido a CanScan!',
+        text: 'Este es el botón de Inicio. Úsalo para volver a la página principal cuando quieras.',
+        attachTo: { element: '#nav-inicio', on: 'top' },
+        buttons: [
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: () => globalThis.location.href = route('barcode') + '?tour_step=2'
+            }
+        ]
+    });
+
+    // PASO 2: Página de Escaneo (Botón de Cámara)
+    tour.addStep({
+        id: 'escanear-step',
+        title: 'Aquí puedes encender la cámara',
+        text: 'Usa este botón para activar o desactivar la cámara y escanear códigos de barras.',
+        attachTo: { element: '#toggle-camera', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: () => globalThis.location.href = route('mostrar.Inicio')
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: tour.next
+            }
+        ]
+    });
+
+    // PASO 3: Página de Escaneo (Input Manual)
+    tour.addStep({
+        id: 'manualescanear-step',
+        title: 'Aquí puedes escribir el código',
+        text: 'Si no puedes usar la cámara, escribe el código de barras aquí y presiona "Mostrar producto".',
+        attachTo: { element: '#barcode-input', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: tour.back 
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: () => globalThis.location.href = route('sugerir.producto') + '?tour_step=4' 
+            }
+        ]
+    });
+
+    // PASO 4: Página de Sugerir Producto
+    tour.addStep({
+        id: 'sugerir-step',
+        title: 'Sugerir un Producto',
+        text: 'Si un producto no está en nuestra base de datos, puedes usar esta sección para solicitar que lo agreguemos.',
+        attachTo: { element: '#nav-sugerir', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: () => {
+                    globalThis.location.href = route('barcode') + '?tour_step=2';
+                }
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: () => {
+                    globalThis.location.href = route('comparar.show') + '?tour_step=5';
+                }
+            }
+        ]
+    });
+
+    // PASO 5: Página de Comparar Productos
+    tour.addStep({
+        id: 'comparar-step',
+        title: 'Comparar Productos',
+        text: 'Aquí puedes comparar diferentes productos y ver sus detalles.',
+        attachTo: { element: '#nav-comparar', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: () => {
+                    globalThis.location.href = route('sugerir.producto') + '?tour_step=4';
+                }
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: () => {
+                    globalThis.location.href = route('profile') + '?tour_step=6';
+                }
+            }
+        ]
+    });
+
+    // PASO 6: Página de Perfil
+    tour.addStep({
+        id: 'profile-step',
+        title: 'Tu Perfil',
+        text: 'Con este botón puedes acceder a tu perfil y ajustar tus configuraciones.',
+        attachTo: { element: '#nav-perfil', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: () => {
+                    globalThis.location.href = route('comparar.show') + '?tour_step=5';
+                }
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: tour.next
+            }
+        ]
+    });
+
+    tour.addStep({
+        id: 'avatar-step',
+        title: 'Avatar',
+        text: 'Puedes cambiar tu avatar haciendo clic aquí.',
+        attachTo: { element: '#current-avatar', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: tour.back
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: tour.next
+            }
+        ]
+    });
+
+    tour.addStep({
+        id: 'configuracion-step',
+        title: 'Editar Perfil',
+        text: 'Usa este botón para editar tu perfil y cambiar tu información personal y de seguridad.',
+        attachTo: { element: '#edit', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: tour.back
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: tour.next
+            }
+        ]
+    });
+
+    tour.addStep({
+        id: 'soporte-step',
+        title: 'Soporte',
+        text: 'Si necesitas ayuda, puedes contactarnos aquí o visitar nuestras preguntas frecuentes.',
+        attachTo: { element: '#soporte', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: tour.back
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: tour.next
+            }
+        ]
+    });
+
+    tour.addStep({
+        id: 'logout-step',
+        title: 'Cerrar Sesión',
+        text: 'Cuando termines, usa este botón para cerrar sesión de forma segura.',
+        attachTo: { element: '#logout', on: 'top' },
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: tour.back
+            },
+            {
+                text: 'Siguiente',
+                classes: 'btn btn-primary',
+                action: tour.next
+            }
+        ]
+    });
+
+    tour.addStep({
+        id: 'end-step',
+        title: '¡Eso es todo!',
+        text: 'Has completado el recorrido. ¡Disfruta usando CanScan!',
+        buttons: [
+            {
+                text: 'Atrás',
+                classes: 'btn btn-secondary me-2',
+                action: tour.back
+            },
+            {
+                text: 'Finalizar',
+                classes: 'btn btn-primary',
+                action: () => {
+                    globalThis.location.href = route('tour.completed');
+                }
+            }
+        ]
+    });
+
+    // --- Lógica de Inicio Corregida ---
+
+    const urlParams = new URLSearchParams(globalThis.location.search);
+    const tourStepFromUrl = urlParams.get('tour_step');
+
+    if (tourStepFromUrl === '2') {
+        tour.show('escanear-step');
+    } else if (tourStepFromUrl === '4') { 
+        tour.show('sugerir-step');
+    } else if (tourStepFromUrl === '5') {
+        tour.show('comparar-step');
+    } else if (tourStepFromUrl === '6') {
+        tour.show('profile-step');
+    }
+    else {
+        tour.start();
+    }
+}

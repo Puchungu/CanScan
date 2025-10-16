@@ -45,25 +45,29 @@
 
     <!-- Secciones estilo Airbnb -->
     <div class="list-group shadow-sm rounded-3 mt-4">
-        <a href="{{ route('personalinfo') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            <span><i class="bi bi-person me-2"></i>Información personal</span>
-            <i class="bi bi-chevron-right"></i>
-        </a>
-        <a href="{{ route('security') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            <span><i class="bi bi-shield-lock me-2"></i>Seguridad</span>
-            <i class="bi bi-chevron-right"></i>
-        </a>
-        <a href="{{ route('support.center') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-            <span><i class="bi bi-question-circle-fill me-2"></i>Centro de soporte</span>
-            <i class="bi bi-chevron-right"></i>
-        </a>
+        <div id="edit">
+            <a href="{{ route('personalinfo') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-person me-2"></i>Información personal</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+            <a href="{{ route('security') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-shield-lock me-2"></i>Seguridad</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
+        <div id="soporte">
+            <a href="{{ route('support.center') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-question-circle-fill me-2"></i>Centro de soporte</span>
+                <i class="bi bi-chevron-right"></i>
+            </a>
+        </div>
     </div>
 
     <!-- Cerrar sesión -->
     <div class="mt-4 text-center">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="btn btn-link text-danger">
+            <button id="logout" type="submit" class="btn btn-link text-danger">
                 <i class="bi bi-box-arrow-right me-1"></i> Cerrar sesión
             </button>
         </form>

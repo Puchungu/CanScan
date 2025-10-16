@@ -111,4 +111,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/faqs', [AuthController::class, 'showFAQs'])->name('faqs');
     Route::get('/soporte/reportar', [AuthController::class, 'showContactForm'])->name('contact');
     Route::post('/soporte/reportar', [AuthController::class, 'submitContactForm'])->name('report.error.submit');
+
+    Route::get('/tour-completed', function() {
+    $user = Auth::user();
+    $user->has_seen_tutorial = true;
+    $user->save();
+    session(['show_tutorial' => false]);
+    return redirect()->route('mostrar.Inicio');
+    })->name('tour.completed');
+    
 });

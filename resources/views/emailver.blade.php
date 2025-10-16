@@ -20,7 +20,7 @@
             </div>
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
-                <button type="submit" class="btn btn-primary w-100 reenviar-btn">
+                <button type="submit" class="btn btn-primary w-100">
                     Reenviar enlace de verificación
                 </button>
             </form>
