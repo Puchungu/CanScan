@@ -219,7 +219,7 @@ class AuthController extends Controller
         $validatedData = $request->validate([
             'motivo' => 'required|string|in:error,sugerencia,consulta',
             'asunto' => 'required|string|max:255',
-            'descripcion' => 'required|string|min:10',
+            'descripcion' => 'required|string',
         ]);
 
         $usuario = Auth::user();
