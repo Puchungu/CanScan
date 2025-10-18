@@ -106,4 +106,3 @@ avatarSelector.addEventListener('click', (e) => {
 });
 </script>
 @endsection
-
