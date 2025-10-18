@@ -422,17 +422,17 @@ if (globalThis.showTutorial) {
 
     const urlParams = new URLSearchParams(globalThis.location.search);
     const tourStepFromUrl = urlParams.get('tour_step');
-
-    if (tourStepFromUrl === '2') {
-        tour.show('escanear-step');
-    } else if (tourStepFromUrl === '4') { 
-        tour.show('sugerir-step');
-    } else if (tourStepFromUrl === '5') {
-        tour.show('comparar-step');
-    } else if (tourStepFromUrl === '6') {
-        tour.show('profile-step');
-    }
-    else {
+    if (tourStepFromUrl) {
+        if (tourStepFromUrl === '2') {
+            tour.show('escanear-step');
+        } else if (tourStepFromUrl === '4') { 
+            tour.show('sugerir-step');
+        } else if (tourStepFromUrl === '5') {
+            tour.show('comparar-step');
+        } else if (tourStepFromUrl === '6') {
+            tour.show('profile-step');
+        }
+    } else {
         tour.start();
     }
 }

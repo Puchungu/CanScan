@@ -6,8 +6,7 @@
     <title>@yield('title', 'CanScan')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    @vite(['resources/css/app.css'])
-    @vite(['resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @routes
     <script>
         window.showTutorial = {{ session('show_tutorial', 'false') ? 'true' : 'false' }};
@@ -29,7 +28,7 @@
         </a>
         <a href="{{ route('sugerir.producto') }}" id="nav-sugerir" class="nav-link {{ Request::routeIs('sugerir.producto') ? 'active' : '' }}">
             <span class="nav-icon bi bi-plus-circle"></span>
-            <span>Sugerir Producto</span>
+            <span>Producto</span>
         </a>
         <a href="{{ route('comparar.show') }}" id="nav-comparar" class="nav-link {{ Request::routeIs('comparar.show') ? 'active' : '' }}">
             <i class="bi bi-bar-chart"></i> Comparar
