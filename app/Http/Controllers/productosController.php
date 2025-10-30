@@ -81,7 +81,7 @@ class ProductosController extends Controller
         $producto = Productos::with('componentes')->findOrFail($id);
 
         // Retornar la vista de detalle del producto
-        return view('Producto', compact('producto'));
+        return view('producto', compact('producto'));
     }
 
     public function addToCompare(Request $request)
