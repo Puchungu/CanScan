@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     private  const MARCA_VALIDATION_RULES = 'nullable|string';
     private  const DESCRIPCION_VALIDATION_RULES = 'nullable|string';
-    private  const IMG_VALIDATION_RULES = 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048';
+    private  const IMG_VALIDATION_RULES = 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:25000';
     private const DEFAULT_IMG_PATH = 'images/default.webp';
 // Mostrar todos los productos en la vista
     public function listarProductos()
