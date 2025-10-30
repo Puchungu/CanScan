@@ -22,7 +22,7 @@ class ProductosController extends Controller
         //Buscar en BD local
         $producto = Productos::with('componentes')->where('codigo_barra', $barcode)->first();
         if ($producto) {
-            return view('Producto', compact('producto'));
+            return view('producto', compact('producto'));
         }
 
         //Buscar en USDA
