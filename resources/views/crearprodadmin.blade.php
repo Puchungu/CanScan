@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <h2>Agregar Producto</h2>
 
-        <form action="{{ route('admin.productos.store') }}" method="POST">
+        <form action="{{ route('admin.productos.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -35,7 +35,7 @@
 
             <div class="mb-3">
                 <label for="img" class="form-label">URL de Imagen</label>
-                <input type="text" name="img" class="form-control">
+                <input class="form-control" type="file" id="img" name="img">
             </div>
 
             <button type="submit" class="btn btn-success">Guardar</button>

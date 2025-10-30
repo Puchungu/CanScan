@@ -10,7 +10,7 @@
     <div class="container mt-4">
         <h2>Editar Producto</h2>
 
-        <form action="{{ route('admin.productos.update', $producto->id) }}" method="POST">
+        <form action="{{ route('admin.productos.update', $producto->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -34,10 +34,13 @@
                 <textarea name="descripcion" class="form-control" rows="3">{{ $producto->descripcion }}</textarea>
             </div>
 
-            <div class="mb-3">
-                <label for="img" class="form-label">URL de Imagen</label>
-                <input type="text" name="img" class="form-control" value="{{ $producto->img }}">
-            </div>
+            <label for="img" class="form-label">URL de Imagen</label>
+            <input class="form-control" type="file" id="img" name="img">
+            @if ($producto->img)
+                <div class="mt-2">
+                    <img src="{{ asset($producto->img) }}" alt="{{ $producto->nombre }}" height="100">
+                </div>
+            @endif
 
             <button type="submit" class="btn btn-success">Actualizar</button>
             <a href="{{ route('admin.productos.index') }}" class="btn btn-secondary">Cancelar</a>

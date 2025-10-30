@@ -7,12 +7,14 @@ use App\Models\Productos;
 use App\Models\Usuarios;
 use Illuminate\Support\Facades\Hash;
 use App\Models\SugerenciaProducto;
+use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
     private  const MARCA_VALIDATION_RULES = 'nullable|string';
     private  const DESCRIPCION_VALIDATION_RULES = 'nullable|string';
-    private  const IMG_VALIDATION_RULES = 'nullable|string';
+    private  const IMG_VALIDATION_RULES = 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048';
+    private const DEFAULT_IMG_PATH = 'images/default.webp';
 // Mostrar todos los productos en la vista
     public function listarProductos()
     {
@@ -36,8 +38,17 @@ class AdminController extends Controller
             'descripcion' => self::DESCRIPCION_VALIDATION_RULES,
             'img' => self::IMG_VALIDATION_RULES,
         ]);
+        $data = $request->except('img');
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images'), $fileName);
+            $data['img'] = 'images/' . $fileName;
+        }else {
+            $data['img'] = self::DEFAULT_IMG_PATH;
+        }
 
-        Productos::create($request->all());
+        Productos::create($data);
 
         return redirect()->route('admin.productos.index')
                          ->with('success', 'Producto creado correctamente');
@@ -63,7 +74,18 @@ class AdminController extends Controller
             'img' => self::IMG_VALIDATION_RULES,
         ]);
 
-        $producto->update($request->all());
+        $data = $request->except('img');
+        if ($request->hasFile('img')) {
+            $oldImagePath = public_path($producto->img);
+            if ($producto->img && $producto->img !== self::DEFAULT_IMG_PATH && File::exists($oldImagePath)){
+                File::delete($oldImagePath);
+            }
+            $file = $request->file('img');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images'), $fileName);
+            $data['img'] = 'images/' . $fileName;
+        }
+        $producto->update($data);
 
         return redirect()->route('admin.productos.index')
                          ->with('success', 'Producto actualizado correctamente');
