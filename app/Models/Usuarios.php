@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\EnviarVerificacionPorEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -25,4 +26,9 @@ class Usuarios extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new EnviarVerificacionPorEmail);
+    }
 }

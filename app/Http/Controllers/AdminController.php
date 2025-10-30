@@ -153,19 +153,17 @@ class AdminController extends Controller
     {
         $sugerencia = SugerenciaProducto::findOrFail($id);
 
-        // Cambiamos el estado de la sugerencia a 'aprobada'
+       
         $sugerencia->status = 'aprobada';
         $sugerencia->save();
 
-        // Redirigimos al formulario de creación de productos, pero pasándole
-        // los datos de la sugerencia para que el admin solo tenga que confirmar o completar.
+       
         return redirect()->route('admin.productos.create')->with('sugerencia', $sugerencia);
     }
     public function rechazarSugerencia($id)
     {
         $sugerencia = SugerenciaProducto::findOrFail($id);
 
-        // Cambiamos el estado a 'rechazada'
         $sugerencia->status = 'rechazada';
         $sugerencia->save();
 
