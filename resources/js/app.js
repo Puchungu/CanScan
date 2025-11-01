@@ -18,6 +18,7 @@ const cameraSVG = `
 `;
 
 function startCamera() {
+    isDetecting = false; // Reiniciar bloqueo de detección
     // Quitar SVG antes de iniciar cámara
     if (camaraDiv) {
         camaraDiv.innerHTML = '';
@@ -57,12 +58,20 @@ function startCamera() {
     });
 }
 
+let isDetecting = false;
 // Escuchar el resultado del escaneo
 Quagga.onDetected(function(result) {
     const code = result?.codeResult?.code;
 
-    if (barcodeInput && code) {
-        barcodeInput.value=code;
+    if (code && !isDetecting) {
+        isDetecting = true; // Bloquear detección adicional
+        stopCamera(); // Detener cámara después de detectar un código
+        navigator.vibrate(200); // Vibrar para feedback
+        
+        // Rellenar el input con el código detectado
+        if (barcodeInput) {
+            barcodeInput.value = code;
+        }
     }
 });
 function stopCamera() {
