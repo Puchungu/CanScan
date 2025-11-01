@@ -2,7 +2,7 @@
 #camara {
     background: #f8f9fa;
     width: 100%;
-    height: auto;
+    height: 600px;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
