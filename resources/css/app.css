@@ -1,23 +1,13 @@
 /* Styles for escaner */
 #camara {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto 1.5rem auto;
-    
     background: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-
-    overflow: hidden;
-    position: relative;
-}
-
-#camara video {
     width: 100%;
     height: auto;
-    display: block;
+    border-radius: 10px;
+    overflow: hidden;
     position: relative;
-    z-index: 1;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    margin-bottom: 1rem;
 }
 .instruction-card {
     background: #fff;
