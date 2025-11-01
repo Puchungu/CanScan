@@ -29,9 +29,10 @@ function startCamera() {
             type : "LiveStream",
             target: camaraDiv, // Div donde se mostrará la cámara
             constraints: {
-                width: 640,
-                height: 480,
-                facingMode: "environment" // Usar cámara trasera si está disponible
+                width: 1280,
+                height: 720,
+                facingMode: "environment", // Usar cámara trasera si está disponible
+                advanced: [{autofocusMode: "continuous"}]
     }
 
         },
