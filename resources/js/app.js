@@ -19,7 +19,7 @@ const cameraSVG = `
 
 function startCamera() {
     isDetecting = false; // Reiniciar bloqueo de detección
-    // Quitar SVG antes de iniciar cámara
+   
     if (camaraDiv) {
         camaraDiv.innerHTML = '';
     }
@@ -27,17 +27,17 @@ function startCamera() {
         inputStream : {
             name : "Live",
             type : "LiveStream",
-            target: camaraDiv, // Div donde se mostrará la cámara
+            target: camaraDiv, 
             constraints: {
                 width: 640,
                 height: 480,
-                facingMode: "environment", // Usar cámara trasera si está disponible
+                facingMode: "environment", 
                 advanced:[{autofocusMode: "continuous"}]
     }
 
         },
         decoder : {
-            readers : ["ean_reader", "ean_8_reader", "code_128_reader"] // Lectores de códigos de barras
+            readers : ["ean_reader", "ean_8_reader", "code_128_reader"] 
         }
 
     }, function(err) {

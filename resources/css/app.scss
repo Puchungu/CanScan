@@ -8,7 +8,7 @@ $font-family-sans-serif: 'Inter', sans-serif;
 
 @import 'bootstrap/scss/bootstrap';
 
-/* 4. Estilos personalizados para la página de login */
+/* Estilos para la página de login */
 .login-body {
     font-family: $font-family-sans-serif;
     background-color: $body-bg;
@@ -62,12 +62,10 @@ $font-family-sans-serif: 'Inter', sans-serif;
 }
 
 /* ======================================================= */
-/* == 1. ESTILOS DEL BODY (¡IMPORTANTE!) == */
+/* ESTILOS DEL BODY
 /* ======================================================= */
 
 body {
-    // Esto asegura que el contenido al final de la página
-    // no quede oculto DETRÁS del menú flotante.
     padding-bottom: 100px; 
 }
 
@@ -77,28 +75,27 @@ body {
 /* ======================================================= */
 
 .bottom-nav {
-    /* --- El Efecto "Flotante" --- */
+    /* El Efecto "Flotante" */
     position: fixed;
     bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1030;
     
-    /* --- El Efecto "Glassmorphism" --- */
+    /* El Efecto "Glassmorphism" */
     background: rgba(255, 255, 255, 0.2); 
     
-    // ¡La magia! El desenfoque de fondo
+    //El desenfoque de fondo
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     
-    // Un borde sutil que simula el filo del vidrio
     border: 1px solid rgba(255, 255, 255, 0.3);
     
-    /* --- La Forma y Sombra --- */
+    /* La Forma y Sombra */
     border-radius: 50px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 
-    /* --- Contenido Interno (Los iconos) --- */
+    /* Contenido Interno  */
     display: flex;
     padding: 0.5rem 1rem;
     gap: 1rem; 
@@ -106,7 +103,7 @@ body {
 
 
 /* ======================================================= */
-/* == 3. ESTILOS DE LOS ENLACES DEL MENÚ == */
+/* == ESTILOS DE LOS ENLACES DEL MENÚ */
 /* ======================================================= */
 
 .bottom-nav .nav-link {
@@ -122,19 +119,19 @@ body {
     min-width: 55px; 
     position: relative; 
     
-    // ESTILO DEL ICONO (siempre visible)
+    // ESTILO DEL ICONO 
     .nav-icon {
         font-size: 1.4rem;
         transition: all 0.3s ease;
     }
     
-    // ESTILO DEL TEXTO (oculto por defecto)
+    // ESTILO DEL TEXTO
     .nav-text {
         font-size: 0.75rem;
         display: none;
     }
   
-    // --- El Efecto "Active" ---
+    //  El Efecto "Active" 
     &.active {
         background: #ffffff;
         color: $primary; 
@@ -147,13 +144,13 @@ body {
         }
     }
     
-    // --- Efecto Hover (cuando no está activo) ---
+    //  Efecto Hover  
     &:not(.active):hover {
         background: rgba(255, 255, 255, 0.5); 
         transform: translateY(-3px);
     }
 }
-/* Ajuste del Badge (Contador de Comparar) */
+/* Ajuste del Badge contador  */
 .bottom-nav .badge {
     top: 5px !important;
     right: 5px !important;
@@ -165,7 +162,7 @@ body {
 
 
 /* ======================================================= */
-/* == 1. ESTILOS DEL HOME (Página de Inicio) == */
+/* ==  ESTILOS DEL HOME (Página de Inicio)  */
 /* ======================================================= */
 .page-title {
     font-weight: 800;
@@ -180,7 +177,7 @@ body {
 }
 
 /* ======================================================= */
-/* == 2. ESTILOS DE LA TARJETA DE PRODUCTO (LA CLAVE) == */
+/* ESTILOS DE LA TARJETA DE PRODUCTO  */
 /* ======================================================= */
 .product-card {
     background-color: #ffffff;
@@ -196,7 +193,7 @@ body {
         box-shadow: 0 8px 30px rgba(0,0,0,0.08);
     }
 
-    /* SOLUCIÓN PARA IMÁGENES */
+    /* PARA IMÁGENES */
     .card-img-container {
         width: 100%;
         height: 250px; 
@@ -226,7 +223,7 @@ body {
         flex-grow: 1;
     }
 
-    /* ESTA ES LA SOLUCIÓN PARA TUS BOTONES */
+    /* PARA BOTONES */
     .btn-group {
         gap: 0.5rem; 
     }
