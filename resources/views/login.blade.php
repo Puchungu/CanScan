@@ -3,59 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesion</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-    @vite('resources/css/app.css')
+    <title>Iniciar sesión - CanScan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    <style>
+        .login-image-side {
+            background-image: url('/images/login-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 50vh;
+        }
+    </style>
 </head>
-<body class="Auth-body">
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card p-5 shadow">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if (session('status'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('status') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-            @if (session('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('message') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
+<body class="login-body">
 
-            <h1 class="h1 text-center titulo-principal">Iniciar sesion</h1>
-            <form action="{{ route('iniciarSesion') }}" method="POST" class="form-auth">
-                @csrf
-                <label for="email" class="encabezado">Correo electronico</label>
-                <input type="text" id="email" name="email" required class="form-control mb-2" placeholder="Correo electronico">
-                <label for="password" class="encabezado">Contrasena</label>
-                <input type="password" id="password" name="password" required class="form-control mb-2" placeholder="Contrasena">
-                <div class="d-flex gap-5 mb-2">
-                    <a href="{{ route('mostrar.Registro') }}" class="page-link">Crear cuenta</a>
-                    <a href="{{ route('password.request') }}" class="page-link">¿Olvidaste tu contraseña?</a>
+    <div class="container-fluid p-0">
+        <div class="row g-0 min-vh-100">
+
+            <div class="col-lg-7 d-none d-lg-block login-image-side">
                 </div>
-                <button type="submit" class="btn btn-primary w-100 btn-login">Iniciar sesion</button>
-                <div class="text-center mt-3">
-                    <a href="{{ route('barcode') }}" class="link-secondary small">Entrar como invitado</a>
+
+            <div class="col-lg-5 d-flex align-items-center justify-content-center">
+                
+                <div class="login-form-container">
+                    
+                    <div class="text-center mb-5">
+                        <img src="{{ asset('images/logo.png') }}" alt="CanScan Logo" style="width: 300px;">
+                    </div>
+
+                    <h1 class="h2 fw-bold text-center mb-4">Bienvenido de vuelta</h1>
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            Datos incorrectos. Por favor, inténtalo de nuevo.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @if (session('status'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('status') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @if (session('message'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('message') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('iniciarSesion') }}" method="POST" class="d-flex flex-column gap-3">
+                        @csrf
+                        
+                        <div class="input-group-icon">
+                            <span class="input-group-text">
+                                <i class="bi bi-envelope-fill"></i>
+                            </span>
+                            <input type="email" id="email" name="email" required class="form-control" placeholder="Correo electrónico" value="{{ old('email') }}">
+                        </div>
+                        
+                        <div class="input-group-icon">
+                            <span class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <input type="password" id="password" name="password" required class="form-control" placeholder="Contraseña">
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="{{ route('password.request') }}" class="small">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">Iniciar sesión</button>
+                    
+                        <div class="text-center mt-3">
+                            <span class="text-muted">¿No tienes cuenta?</span>
+                            <a href="{{ route('mostrar.Registro') }}">Regístrate aquí</a>
+                        </div>
+                        
+                        <div class="text-center mt-2">
+                             <a href="{{ route('barcode') }}" class="link-secondary small">Entrar como invitado</a>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+
         </div>
     </div>
 </body>
