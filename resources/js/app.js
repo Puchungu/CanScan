@@ -65,13 +65,25 @@ Quagga.onDetected(function(result) {
     const code = result?.codeResult?.code;
 
     if (code && !isDetecting) {
-        isDetecting = true; // Bloquear detección adicional
-        stopCamera(); // Detener cámara después de detectar un código
-        
-        // Rellenar el input con el código detectado
+        isDetecting = true; // 1. Poner el seguro
+
+        // --- 2. RELLENAR EL INPUT (¡Hacer esto PRIMERO!) ---
         if (barcodeInput) {
             barcodeInput.value = code;
         }
+
+        // --- 3. ACTIVAR EL BOTÓN MANUALMENTE ---
+        // (Esto es necesario porque .value no dispara el evento 'input')
+        const button = document.getElementById("submit-btn");
+        if (button && barcodeInput.value.trim() !== "") {
+            button.disabled = false;
+            button.classList.remove("btn-secondary");
+            button.classList.add("btn-primary");
+        }
+
+        // --- 4. DETENER LA CÁMARA Y VIBRAR (¡Hacer esto AL FINAL!) ---
+        stopCamera(); 
+        navigator.vibrate(200); 
     }
 });
 function stopCamera() {
