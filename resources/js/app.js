@@ -67,7 +67,6 @@ Quagga.onDetected(function(result) {
     if (code && !isDetecting) {
         isDetecting = true; // Bloquear detección adicional
         stopCamera(); // Detener cámara después de detectar un código
-        navigator.vibrate(200); // Vibrar para feedback
         
         // Rellenar el input con el código detectado
         if (barcodeInput) {
