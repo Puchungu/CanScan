@@ -9,7 +9,13 @@
     @vite(['resources/css/app.css','resources/css/app.scss','resources/js/app.js'])
     @routes
     <script>
+        @auth
+        // Si el usuario está AUTENTICADO, revisa la sesión
         window.showTutorial = {{ session('show_tutorial', 'false') ? 'true' : 'false' }};
+    @else
+        // Si el usuario es un INVITADO, el tutorial es SIEMPRE falso
+        window.showTutorial = false;
+    @endauth
     </script>
 </head>
 <body>
