@@ -18,7 +18,7 @@ class AuthController extends Controller
     private const EMAIL_VALIDATION_RULES = 'required|email';
     private const USERNAME_VALIDATION_RULES = 'required|max:30|unique:usuarios';
     private const PASSWORD_VALIDATION_RULES = 'required|min:8';
-    private const NAME_VALIDATION_RULES = 'required';
+    private const NAME_VALIDATION_RULES = 'required|string|alpha_spaces|max:100';
 
     
     public function registrar(Request $request){
