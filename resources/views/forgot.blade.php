@@ -1,9 +1,15 @@
-@extends('layouts.menu')
-
-@section('title', 'Recuperar Contraseña')
-
-@section('content')
-<div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 70vh;">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    @vite(['resources/css/app.css','resources/css/app.scss','resources/js/app.js'])
+</head>
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 70vh;">
     <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
         <h3 class="text-center mb-3">Recuperar Contraseña</h3>
 
@@ -37,4 +43,5 @@
         </div>
     </div>
 </div>
-@endsection
+</body>
+</html>
