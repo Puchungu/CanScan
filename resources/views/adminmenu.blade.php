@@ -7,7 +7,7 @@
     <title>@yield('title', 'CanScan')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.scss'])
 </head>
 <body>
     <nav class="bottom-nav d-flex justify-content-around border-top fixed-bottom bg-light">
