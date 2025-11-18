@@ -4,7 +4,7 @@
 @section('scanActive', 'active')
 
 @section('content')
-<div class="container py-3" style="max-width: 600px;">
+<div class="container py-3" style="max-width: 600px; overflow-y:hidden;">
     <!-- Instrucciones -->
     <div class="d-flex justify-content-between mb-3">
         <div class="instruction-card flex-fill mx-1 text-center">

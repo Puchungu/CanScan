@@ -8,7 +8,7 @@
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
     <style>
         .login-image-side {
-            background-image: url('/images/login-bg.jpg');
+            background-image: url('/images/login.png');
             background-size: cover;
             background-position: center;
             min-height: 50vh;
@@ -17,7 +17,7 @@
 </head>
 <body class="login-body">
 
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 login-div">
         <div class="row g-0 min-vh-100">
 
             <div class="col-lg-7 d-none d-lg-block login-image-side">
