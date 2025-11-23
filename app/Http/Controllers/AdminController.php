@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
-    private  const MARCA_VALIDATION_RULES = 'nullable|string';
-    private  const DESCRIPCION_VALIDATION_RULES = 'nullable|string';
-    private  const IMG_VALIDATION_RULES = 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:25000';
+    private const MARCA_VALIDATION_RULES = 'nullable|string';
+    private const DESCRIPCION_VALIDATION_RULES = 'nullable|string';
+    private const IMG_VALIDATION_RULES = 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:25000';
     private const DEFAULT_IMG_PATH = 'images/default.webp';
-// Mostrar todos los productos en la vista
+    // Mostrar todos los productos en la vista
     public function listarProductos()
     {
         $productos = Productos::all();
@@ -35,6 +35,7 @@ class AdminController extends Controller
             'nombre' => 'required|string|unique:productos,nombre|max:255',
             'codigo_barra' => 'required|string',
             'marca' => self::MARCA_VALIDATION_RULES,
+            'categoria' => 'required|string',
             'descripcion' => self::DESCRIPCION_VALIDATION_RULES,
             'img' => self::IMG_VALIDATION_RULES,
         ]);
@@ -44,14 +45,14 @@ class AdminController extends Controller
             $fileName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images'), $fileName);
             $data['img'] = 'images/' . $fileName;
-        }else {
+        } else {
             $data['img'] = self::DEFAULT_IMG_PATH;
         }
 
         Productos::create($data);
 
         return redirect()->route('admin.productos.index')
-                         ->with('success', 'Producto creado correctamente');
+            ->with('success', 'Producto creado correctamente');
     }
 
     // Mostrar formulario para editar un producto existente
@@ -70,6 +71,7 @@ class AdminController extends Controller
             'nombre' => 'required|string|max:255|unique:productos,nombre,' . $producto->id,
             'codigo_barra' => 'required|string',
             'marca' => self::MARCA_VALIDATION_RULES,
+            'categoria' => 'required|string',
             'descripcion' => self::DESCRIPCION_VALIDATION_RULES,
             'img' => self::IMG_VALIDATION_RULES,
         ]);
@@ -77,7 +79,7 @@ class AdminController extends Controller
         $data = $request->except('img');
         if ($request->hasFile('img')) {
             $oldImagePath = public_path($producto->img);
-            if ($producto->img && $producto->img !== self::DEFAULT_IMG_PATH && File::exists($oldImagePath)){
+            if ($producto->img && $producto->img !== self::DEFAULT_IMG_PATH && File::exists($oldImagePath)) {
                 File::delete($oldImagePath);
             }
             $file = $request->file('img');
@@ -88,7 +90,7 @@ class AdminController extends Controller
         $producto->update($data);
 
         return redirect()->route('admin.productos.index')
-                         ->with('success', 'Producto actualizado correctamente');
+            ->with('success', 'Producto actualizado correctamente');
     }
 
     // Eliminar un producto de la base de datos
@@ -98,7 +100,7 @@ class AdminController extends Controller
         $producto->delete();
 
         return redirect()->route('admin.productos.index')
-                         ->with('success', 'Producto eliminado correctamente');
+            ->with('success', 'Producto eliminado correctamente');
     }
 
     // Mostrar todos los usuarios en la vista
@@ -117,20 +119,20 @@ class AdminController extends Controller
     // Guardar un nuevo usuario en la base de datos
     public function guardarUsuario(Request $request)
     {
-    $validated = $request->validate([
-        'nombre' => 'required|string|max:255',
-        'username' => 'required|string|unique:usuarios,username',
-        'email' => 'required|string|email|unique:usuarios,email',
-        'password' => 'required|string|min:8',
-        'avatar' => 'nullable|string',
-    ]);
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'username' => 'required|string|unique:usuarios,username',
+            'email' => 'required|string|email|unique:usuarios,email',
+            'password' => 'required|string|min:8',
+            'avatar' => 'nullable|string',
+        ]);
 
-    $validated['password'] = Hash::make($validated['password']);
+        $validated['password'] = Hash::make($validated['password']);
 
-    // Asegúrate de que este es el modelo correcto
-    Usuarios::create($validated);
+        // Asegúrate de que este es el modelo correcto
+        Usuarios::create($validated);
 
-    return redirect()->route('admin.usuarios.index')->with('success', 'Usuario creado correctamente');
+        return redirect()->route('admin.usuarios.index')->with('success', 'Usuario creado correctamente');
     }
     // Mostrar formulario para editar un usuario existente
     public function editarUsuario($id)
@@ -153,7 +155,7 @@ class AdminController extends Controller
         $usuario->update($request->all());
 
         return redirect()->route('admin.usuarios.index')
-                         ->with('success', 'Usuario actualizado correctamente');
+            ->with('success', 'Usuario actualizado correctamente');
     }
 
     // Eliminar un usuario de la base de datos
@@ -163,10 +165,11 @@ class AdminController extends Controller
         $usuario->delete();
 
         return redirect()->route('admin.usuarios.index')
-                         ->with('success', 'Usuario eliminado correctamente');
+            ->with('success', 'Usuario eliminado correctamente');
     }
 
-    public function showSugerencias(){
+    public function showSugerencias()
+    {
         $sugerencias = SugerenciaProducto::where('status', 'pendiente')->get();
         return view('sugerenciasadmin', compact('sugerencias'));
     }
@@ -175,11 +178,11 @@ class AdminController extends Controller
     {
         $sugerencia = SugerenciaProducto::findOrFail($id);
 
-       
+
         $sugerencia->status = 'aprobada';
         $sugerencia->save();
 
-       
+
         return redirect()->route('admin.productos.create')->with('sugerencia', $sugerencia);
     }
     public function rechazarSugerencia($id)

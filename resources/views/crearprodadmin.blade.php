@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xml:lang="en">
+
 <head>
     <title>Agregar Producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     @include('adminmenu')
 
@@ -15,17 +17,25 @@
 
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" class="form-control" value="{{ session('sugerencia.nombre') ?? old('nombre') }}" required>
+                <input type="text" name="nombre" class="form-control"
+                    value="{{ session('sugerencia.nombre') ?? old('nombre') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="codigo_barra" class="form-label">Código de Barra</label>
-                <input type="text" name="codigo_barra" class="form-control" value="{{ session('sugerencia.codigo_barra') ?? old('codigo_barra') }}" required>
+                <input type="text" name="codigo_barra" class="form-control"
+                    value="{{ session('sugerencia.codigo_barra') ?? old('codigo_barra') }}" required>
             </div>
 
             <div class="mb-3">
                 <label for="marca" class="form-label">Marca</label>
-                <input type="text" name="marca" class="form-control" value="{{ session('sugerencia.marca') ?? old('marca') }}" placeholder="Desconodida">
+                <input type="text" name="marca" class="form-control"
+                    value="{{ session('sugerencia.marca') ?? old('marca') }}" placeholder="Desconodida">
+            </div>
+
+            <div class="mb-3">
+                <label for="categoria" class="form-label">Categoria</label>
+                <input type="text" name="categoria" class="form-control" placeholder="Desconodida">
             </div>
 
             <div class="mb-3">
@@ -43,4 +53,5 @@
         </form>
     </div>
 </body>
+
 </html>

@@ -13,6 +13,7 @@ use App\Models\Productos;
 use App\Mail\ReporteDeUsuario;
 use Illuminate\Support\Facades\Mail;
 
+
 class AuthController extends Controller
 {
     private const EMAIL_VALIDATION_RULES = 'required|email';
@@ -20,9 +21,10 @@ class AuthController extends Controller
     private const PASSWORD_VALIDATION_RULES = 'required|min:8';
     private const NAME_VALIDATION_RULES = 'required|string|regex:/^[\pL\s]+$/u|max:100';
 
-    
-    public function registrar(Request $request){
-       $validated = $request->validate([
+
+    public function registrar(Request $request)
+    {
+        $validated = $request->validate([
             'nombre' => self::NAME_VALIDATION_RULES,
             'username' => self::USERNAME_VALIDATION_RULES,
             'email' => self::EMAIL_VALIDATION_RULES,
@@ -37,7 +39,8 @@ class AuthController extends Controller
         return redirect()->route('verification.notice')->with('success', 'Usuario registrado correctamente.');
     }
 
-    public function mostrarRegistro(){
+    public function mostrarRegistro()
+    {
         return view('registrarse');
     }
 
@@ -45,43 +48,63 @@ class AuthController extends Controller
     {
         return view('login');
     }
-    public function mostrarInicio()
+    public function mostrarInicio(Request $request)
     {
-        $productos = Productos::inRandomOrder()->take(6)->get(); // 6 productos aleatorios
-        return view('inicio', compact('productos'));
+        // 1. Obtenemos todas las categorías únicas que existen en la BD para el <select>
+        $categorias = Productos::whereNotNull('categoria')
+            ->where('categoria', '!=', '')
+            ->distinct()
+            ->pluck('categoria');
+
+        // 2. Preparamos la consulta base
+        $query = Productos::query();
+
+        // 3. Si el usuario seleccionó una categoría, filtramos
+        if ($request->filled('categoria')) {
+            $query->where('categoria', $request->input('categoria'));
+            // Si filtra, mostramos todos los resultados (o podrías paginar)
+            $productos = $query->get();
+        } else {
+            // Si no filtra, mantenemos tu lógica original de mostrar 6 aleatorios
+            $productos = $query->inRandomOrder()->take(6)->get();
+        }
+
+        // 4. Retornamos la vista enviando productos y categorias
+        // NOTA: Tu archivo se llama 'inicio.blade.php', asegúrate de que el view apunte ahí.
+        return view('inicio', compact('productos', 'categorias'));
     }
 
     public function iniciarSesion(Request $request)
     {
-    $validated = $request->validate([
-        'email' => self::EMAIL_VALIDATION_RULES,
-        'password' => 'required|min:8',
-    ]);
+        $validated = $request->validate([
+            'email' => self::EMAIL_VALIDATION_RULES,
+            'password' => 'required|min:8',
+        ]);
 
-    $redirect = redirect()->route('mostrar.Inicio'); // valor por defecto
+        $redirect = redirect()->route('mostrar.Inicio'); // valor por defecto
 
-    if (!Auth::attempt($validated)) {
-        $redirect = redirect()->route('login')->with('error', 'El correo o la contraseña son incorrectos.');
-    } else {
-        $request->session()->regenerate();
-        $user = Auth::user();
+        if (!Auth::attempt($validated)) {
+            $redirect = redirect()->route('login')->with('error', 'El correo o la contraseña son incorrectos.');
+        } else {
+            $request->session()->regenerate();
+            $user = Auth::user();
 
-        $showTutorial = !$user->has_seen_tutorial;
-        if ($showTutorial) {
-            $user->has_seen_tutorial = true;
-            $user->save();
+            $showTutorial = !$user->has_seen_tutorial;
+            if ($showTutorial) {
+                $user->has_seen_tutorial = true;
+                $user->save();
+            }
+            session(['show_tutorial' => $showTutorial]);
+
+            if ($user->username !== 'admin' && $user->email_verified_at === null) {
+                Auth::logout();
+                $redirect = redirect()->route('login')->with('error', 'Por favor, verifica tu correo electrónico antes de iniciar sesión.');
+            } elseif ($user->username === 'admin') {
+                $redirect = redirect()->route('admin.productos.index');
+            }
         }
-        session(['show_tutorial' => $showTutorial]);
 
-        if ($user->username !== 'admin' && $user->email_verified_at === null) {
-            Auth::logout();
-            $redirect = redirect()->route('login')->with('error', 'Por favor, verifica tu correo electrónico antes de iniciar sesión.');
-        } elseif ($user->username === 'admin') {
-            $redirect = redirect()->route('admin.productos.index');
-        }
-    }
-
-    return $redirect;
+        return $redirect;
     }
 
     public function cerrarSesion(Request $request)
@@ -207,7 +230,8 @@ class AuthController extends Controller
     {
         return view('support-center');
     }
-    public function showFAQs(){
+    public function showFAQs()
+    {
         return view('faqs');
     }
     public function showContactForm()

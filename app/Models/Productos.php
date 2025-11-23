@@ -16,6 +16,7 @@ class Productos extends Model
         'img',
         'descripcion',
         'marca',
+        'categoria',
         'codigo_barra',
     ];
 

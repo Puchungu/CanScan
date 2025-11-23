@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xml:lang="en">
+
 <head>
     <title>Editar Producto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     @include('adminmenu')
 
@@ -21,12 +23,18 @@
 
             <div class="mb-3">
                 <label for="codigo_barra" class="form-label">Código de Barra</label>
-                <input type="text" name="codigo_barra" class="form-control" value="{{ $producto->codigo_barra }}" required>
+                <input type="text" name="codigo_barra" class="form-control" value="{{ $producto->codigo_barra }}"
+                    required>
             </div>
 
             <div class="mb-3">
                 <label for="marca" class="form-label">Marca</label>
                 <input type="text" name="marca" class="form-control" value="{{ $producto->marca }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="categoria" class="form-label">Categoria</label>
+                <input type="text" name="categoria" class="form-control" value="{{ $producto->categoria }}">
             </div>
 
             <div class="mb-3">
@@ -47,4 +55,5 @@
         </form>
     </div>
 </body>
+
 </html>
