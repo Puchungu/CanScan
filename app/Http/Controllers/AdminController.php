@@ -25,7 +25,14 @@ class AdminController extends Controller
     // Mostrar formulario para crear un nuevo producto
     public function crearProducto()
     {
-        return view('crearprodadmin');
+        // OBTENER CATEGORÍAS PARA LA LISTA
+        $categorias = Productos::select('categoria')
+            ->whereNotNull('categoria')
+            ->where('categoria', '!=', '')
+            ->distinct()
+            ->pluck('categoria');
+
+        return view('crearprodadmin', compact('categorias'));
     }
 
     // Guardar un nuevo producto en la base de datos
@@ -59,7 +66,13 @@ class AdminController extends Controller
     public function editarProducto($id)
     {
         $producto = Productos::findOrFail($id);
-        return view('editarprodadmin', compact('producto'));
+
+        $categorias = Productos::select('categoria')
+            ->whereNotNull('categoria')
+            ->where('categoria', '!=', '')
+            ->distinct()
+            ->pluck('categoria');
+        return view('editarprodadmin', compact('producto', 'categorias'));
     }
 
     // Actualizar los datos de un producto existente
