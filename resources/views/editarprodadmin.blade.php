@@ -33,8 +33,17 @@
             </div>
 
             <div class="mb-3">
-                <label for="categoria" class="form-label">Categoria</label>
-                <input type="text" name="categoria" class="form-control" value="{{ $producto->categoria }}">
+                <label for="categoria" class="form-label">Categoría</label>
+
+                <input class="form-control" list="datalistOptions" name="categoria" id="categoria"
+                    placeholder="Escribe para buscar o crear nueva..." autocomplete="on"
+                    value="{{ $producto->categoria }}">
+
+                <datalist id="datalistOptions">
+                    @foreach($categorias as $cat)
+                        <option value="{{ $cat }}">
+                    @endforeach
+                </datalist>
             </div>
 
             <div class="mb-3">

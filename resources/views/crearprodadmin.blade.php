@@ -37,7 +37,7 @@
                 <label for="categoria" class="form-label">Categoría</label>
 
                 <input class="form-control" list="datalistOptions" name="categoria" id="categoria"
-                    placeholder="Escribe para buscar o crear nueva..." autocomplete="off">
+                    placeholder="Escribe para buscar o crear nueva..." autocomplete="on">
 
                 <datalist id="datalistOptions">
                     @foreach($categorias as $cat)
